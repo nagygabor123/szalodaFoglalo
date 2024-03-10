@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\app\\szalodaFoglalo\\SzalodaFoglalas\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|D:\\app\\szalodaFoglalo\\SzalodaFoglalas\\szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|solutionrelative:szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|D:\\app\\szalodaFoglalo\\SzalodaFoglalas\\szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|solutionrelative:szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|d:\\app\\szalodafoglalo\\szalodafoglalas\\szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|solutionrelative:szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|d:\\app\\szalodafoglalo\\szalodafoglalas\\szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{57434971-6365-4837-BDA8-A9B7D7F94370}|SzalodaFoglalas\\SzalodaFoglalas.csproj|solutionrelative:szalodafoglalas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,24 +18,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\app\\szalodaFoglalo\\SzalodaFoglalas\\SzalodaFoglalas\\Form1.cs",
               "RelativeDocumentMoniker": "SzalodaFoglalas\\Form1.cs",
               "ToolTip": "D:\\app\\szalodaFoglalo\\SzalodaFoglalas\\SzalodaFoglalas\\Form1.cs",
               "RelativeToolTip": "SzalodaFoglalas\\Form1.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAiwFkAAAAMAAAA",
+              "ViewState": "AQIAALcAAAAAAAAAAAAowK8BAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-08T21:55:47.597Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "D:\\app\\szalodaFoglalo\\SzalodaFoglalas\\SzalodaFoglalas\\Form1.cs",
               "RelativeDocumentMoniker": "SzalodaFoglalas\\Form1.cs",
