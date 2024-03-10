@@ -1,0 +1,10 @@
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\tesztCalendar.exe.config
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\tesztCalendar.exe
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\tesztCalendar.pdb
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.AssemblyReference.cache
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.Form1.resources
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.Properties.Resources.resources
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.GenerateResource.cache
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.CoreCompileInputs.cache
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.exe
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.pdb
