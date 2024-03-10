@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace tesztCalendar
 {
     public partial class Form1 : Form
@@ -91,7 +92,7 @@ namespace tesztCalendar
                 //szoba 1-27
                 
 
-                #region jan
+                #region 01 jan
                 //1(január) -> 1-31
                 //2(február) -> 32-59
                 if (adatok[i].szobaszam == vszobaszam &&
@@ -380,55 +381,48 @@ namespace tesztCalendar
         {
             for (int j = 0; j < elteltnap+1; j++)
             {
-                // Az indexek alapján szín beállítása
-                if (index1 > 0 && index1 <= 12 && index2 > 0 && index2 <= 32)
+                if (index1 > 0 && index1 <= 12 && index2 > 0 && index2 <= 31)
                 {
                     DataGridViewRow row = dataGridView1.Rows[index1 - 1];
                     row.Cells[index2].Style.BackColor = Color.DarkRed;
                     
                 }
                 index2++;
-
-            }
-                  
+            }      
         }
 
         private void InitializeDataGridView()
         {
-            // DataGridView létrehozása és beállítása
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.ColumnHeadersVisible = true;
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            
 
-            // Oszlopok hozzáadása a DataGridView-hez
+            // Oszlop hozzáadása
             dataGridView1.Columns.Add("MonthColumn", "Hónap/Nap");
 
-            for (int i = 1; i <= 32; i++)
+            for (int i = 1; i <= 31; i++)
             {
                 dataGridView1.Columns.Add("Column" + i, i.ToString());
-                
             }
 
-            // Sorok hozzáadása a DataGridView-hez
+            // Sor hozzáadása
             for (int i = 0; i < 12; i++)
             {
                 DataGridViewRow row = new DataGridViewRow();
                 row.CreateCells(dataGridView1);
                 row.Cells[0].Value = GetMonthName(i + 1);
-
-                for (int j = 1; j <= 32; j++)
+                
+                for (int j = 1; j <= 31; j++)
                 {
                     row.Cells[j].Value = j;
                 }
-
+                row.Cells[0].Style.BackColor = Color.FromArgb(155, 115, 223);
                 dataGridView1.Rows.Add(row);
             }
-
-            // Form hozzáadása a DataGridView-hez
-            this.Controls.Add(dataGridView1);
         }
 
         private void urescella()
@@ -437,110 +431,62 @@ namespace tesztCalendar
             // Ellenőrizzük, hogy van-e legalább egy sor a DataGridView - ban
             if (dataGridView1.Rows.Count > 0)
             {
-                #region jan
-                // Az első sor utolsó cellájának törlése
-                dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                // Az utolsó cella nem szerkeszthető lesz
-                dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                // Az utolsó cella háttérszínének beállítása
-                dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                #endregion
-
                 #region feb
+                // Az első sor utolsó cellájának törlése
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = null;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Value = null;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Value = null;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 4].Value = null;
+                // Az utolsó cella nem szerkeszthető lesz
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].ReadOnly = true;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 4].ReadOnly = true;
+                // Az utolsó cella háttérszínének beállítása
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.Gray;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Style.BackColor = Color.Gray;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 4].Style.BackColor = Color.Gray;
-                #endregion
-
-                #region mar
-
-                dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray; // példában fehér szín
+                
                 #endregion
 
                 #region apr
                 dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 2].Value = null;
+                
                 dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
+                
                 dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.Gray;
-                #endregion
-
-                #region maj
-
-                dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Value = null;
-
-                dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-
-                dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
+                
                 #endregion
 
                 #region jun
                 dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 2].Value = null;
+                
                 dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
+                
                 dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.Gray;
-                #endregion
-
-                #region jul
-                dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                #endregion
-
-                #region aug
-                dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
+                
                 #endregion
 
                 #region sep
                 dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 2].Value = null;
+                
                 dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
+                
                 dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.Gray;
-                #endregion
-
-                #region okt
-                dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
+                
                 #endregion
 
                 #region nov
                 dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 2].Value = null;
+                
                 dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
+                
                 dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.Gray;
-                #endregion
-
-                #region dec
-                dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
+                
                 #endregion
             }
             #endregion
         }
 
-        // Hónap nevek visszaadása az index alapján
+        // Hónap beallitas 
         private string GetMonthName(int monthNumber)
         {
             switch (monthNumber)
