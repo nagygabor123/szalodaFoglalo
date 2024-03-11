@@ -53,7 +53,7 @@ namespace tesztCalendar
             InitializeComponent();
             InitializeDataGridView();
             urescella();
-
+            
             #region ComboBox beallitasa
             for (int i = 1; i <= 27; i++)
             {
@@ -62,16 +62,12 @@ namespace tesztCalendar
             #endregion
 
             comboBox1.SelectedIndexChanged += comboBox1_DropDownClosed;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-           
+            dataGridView1.CellClick -= cell_click;
         }
 
         private void comboBox1_DropDownClosed(object sender, EventArgs e)
         {
-            SetDataGridViewCellColors(Color.White);
+            cellaszinvissza();
 
             #region filebe
             StreamReader olvas = new StreamReader("pitypang.txt");
@@ -362,16 +358,19 @@ namespace tesztCalendar
             }
             #endregion
 
+            dataGridView1.CellClick += cell_click;
+
             urescella();
         }
 
-        private void SetDataGridViewCellColors(Color color)
+        private void cellaszinvissza()
         {
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                    cell.Style.BackColor = color;
+                    cell.Style.BackColor = Color.White;
+                    cell.Style.ForeColor = Color.Black;
                 }
             }
         }
@@ -384,7 +383,8 @@ namespace tesztCalendar
                 if (index1 > 0 && index1 <= 12 && index2 > 0 && index2 <= 31)
                 {
                     DataGridViewRow row = dataGridView1.Rows[index1 - 1];
-                    row.Cells[index2].Style.BackColor = Color.DarkRed;
+                    row.Cells[index2].Style.BackColor = Color.FromArgb(245, 97, 105);
+                    row.Cells[index2].Style.ForeColor = Color.White;
                     
                 }
                 index2++;
@@ -393,22 +393,23 @@ namespace tesztCalendar
 
         private void InitializeDataGridView()
         {
-            dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.RowHeadersVisible = false;
-            dataGridView1.ColumnHeadersVisible = true;
+            dataGridView1.ColumnHeadersVisible = false;
             dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.ReadOnly = true;
             
-
             // Oszlop hozzáadása
-            dataGridView1.Columns.Add("MonthColumn", "Hónap/Nap");
+            dataGridView1.Columns.Add("MColumn", "Hónapok");
 
             for (int i = 1; i <= 31; i++)
             {
-                dataGridView1.Columns.Add("Column" + i, i.ToString());
+                dataGridView1.Columns.Add("Column"+i," ");
             }
-
+            
             // Sor hozzáadása
             for (int i = 0; i < 12; i++)
             {
@@ -420,20 +421,52 @@ namespace tesztCalendar
                 {
                     row.Cells[j].Value = j;
                 }
-                row.Cells[0].Style.BackColor = Color.FromArgb(155, 115, 223);
                 dataGridView1.Rows.Add(row);
             }
+            
         }
+
+        
 
         private void urescella()
         {
             #region urescellak
-            // Ellenőrizzük, hogy van-e legalább egy sor a DataGridView - ban
-            if (dataGridView1.Rows.Count > 0)
-            {
-                #region feb
-                // Az első sor utolsó cellájának törlése
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = null;
+            
+            #region honapok
+            Font boldFont = new Font(dataGridView1.Font, FontStyle.Bold);
+            dataGridView1.Columns[0].Width = 80;
+            
+
+            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
+
+            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            #endregion
+
+            #region feb
+            // Az első sor utolsó cellájának törlése
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = null;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Value = null;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Value = null;
                 // Az utolsó cella nem szerkeszthető lesz
@@ -441,52 +474,51 @@ namespace tesztCalendar
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
                 dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].ReadOnly = true;
                 // Az utolsó cella háttérszínének beállítása
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.Gray;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Style.BackColor = Color.Gray;
-                
+                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.FromArgb(188, 223, 227);
+                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Style.BackColor = Color.FromArgb(188, 223, 227);
+
                 #endregion
 
-                #region apr
+            #region apr
                 dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = null;
                 
                 dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
                 
-                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                
+                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+
                 #endregion
 
-                #region jun
+            #region jun
                 dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = null;
                 
                 dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
                 
-                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                
+                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+
                 #endregion
 
-                #region sep
+            #region sep
                 dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = null;
                 
                 dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
                 
-                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                
+                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+
                 #endregion
 
-                #region nov
+            #region nov
                 dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Value = null;
                 
                 dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
                 
-                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.Gray;
-                
+                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+
                 #endregion
-            }
+            
             #endregion
         }
 
-        // Hónap beallitas 
         private string GetMonthName(int monthNumber)
         {
             switch (monthNumber)
@@ -519,5 +551,81 @@ namespace tesztCalendar
                     return "";
             }
         }
+
+       
+        private DataGridViewCell startdate = null;
+        private DataGridViewCell enddate = null;
+
+
+        private void cell_click(object sender, DataGridViewCellEventArgs kivalasztott)
+        {
+            if (startdate == null)
+            {
+                startdate = dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex];
+                startdate.Style.BackColor = Color.Yellow;
+            }
+            else if (enddate == null)
+            {
+                enddate = dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex];
+                enddate.Style.BackColor = Color.Yellow;
+
+                ShowPopupForm();
+            }
+            else
+            {
+                startdate.Style.BackColor = Color.White;
+                enddate.Style.BackColor = Color.White;
+                startdate = null;
+                enddate = null;
+                cell_click(sender, kivalasztott);
+            }
+        }
+
+        private void ShowPopupForm()
+        {
+            Form popupForm = new Form();
+            popupForm.Text = "Foglalás";
+            popupForm.Size = new Size(400, 200);
+            popupForm.ControlBox = false;
+            popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            popupForm.BackgroundImage = Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+
+            System.Windows.Forms.Label startLabel = new System.Windows.Forms.Label();
+            startLabel.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
+            startLabel.Location = new Point(20, 20);
+            startLabel.BackColor = Color.Transparent;
+            popupForm.Controls.Add(startLabel);
+
+            System.Windows.Forms.Label endLabel = new System.Windows.Forms.Label();
+            endLabel.Text = "Távozás: " + enddate.OwningRow.Cells[0].Value.ToString() + "." + enddate.Value.ToString();
+            endLabel.Location = new Point(20, 50);
+            endLabel.BackColor = Color.Transparent;
+            popupForm.Controls.Add(endLabel);
+
+            System.Windows.Forms.Label roomLabel = new System.Windows.Forms.Label();
+            roomLabel.Text = "Szobaszám: " + vszobaszam;
+            roomLabel.Location = new Point(20, 80);
+            roomLabel.BackColor = Color.Transparent;
+            popupForm.Controls.Add(roomLabel);
+
+            Button cancelButton = new Button();
+            cancelButton.Text = "Mégse";
+            cancelButton.DialogResult = DialogResult.Cancel;
+            cancelButton.Location = new Point(20, 110);
+            popupForm.Controls.Add(cancelButton);
+
+            Button reserveButton = new Button();
+            reserveButton.Text = "Foglalás";
+            reserveButton.DialogResult = DialogResult.OK;
+            reserveButton.Location = new Point(100, 110);
+            popupForm.Controls.Add(reserveButton);
+
+            if (popupForm.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Foglalás sikeres!");
+            }
+        }
+
+
     }
 }
