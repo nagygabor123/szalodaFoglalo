@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
@@ -42,7 +43,6 @@ namespace tesztCalendar
                 foglaltnev = szet[6];
                 eltoltnapok = Convert.ToInt32(szet[3]) - Convert.ToInt32(szet[2]);
             }
-
         }
         int length = 0;
         #endregion
@@ -52,38 +52,95 @@ namespace tesztCalendar
 
         public Form1()
         {
+            this.StartPosition = FormStartPosition.Manual;
+            this.Left = 240;
+            this.Top = 200;
             InitializeComponent();
             InitializeDataGridView();
             urescella();
-            
-            #region ComboBox beallitasa
+            #region ComboBoxok beallitasa
             for (int i = 1; i <= 27; i++)
             {
                 comboBox1.Items.Add(i);
             }
+            comboBox2.Items.Add("2024");
+            comboBox2.Items.Add("2025");
+            comboBox2.Items.Add("2026");
+            comboBox2.Items.Add("2027");
+            comboBox2.Items.Add("2028");
+            comboBox2.Items.Add("2029");
+            comboBox2.Items.Add("2030");
             #endregion
-
+            comboBox2.SelectedIndexChanged += ujevek;
             comboBox1.SelectedIndexChanged += comboBox1_DropDownClosed;
             dataGridView1.CellClick -= cell_click;
+        }
+
+        private void ujevek(object sender, EventArgs e)
+        {
+            string evjarat = comboBox2.SelectedItem.ToString();
+            string fajlutvonal = @"D:\app\szalodaFoglalo\" + evjarat + ".txt";
+
+            if (File.Exists(fajlutvonal))
+            {
+                MessageBox.Show("A fájl létezik.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                #region felugroablak
+                Form ujEvek = new Form();
+                ujEvek.Text = "Foglalás";
+                ujEvek.Size = new Size(230, 180);
+                ujEvek.StartPosition = FormStartPosition.Manual;
+                ujEvek.Left = 800;
+                ujEvek.Top = 400;
+                ujEvek.ControlBox = false;
+                ujEvek.FormBorderStyle = FormBorderStyle.FixedDialog;
+                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+
+
+                System.Windows.Forms.Label szoveg = new System.Windows.Forms.Label();
+                szoveg.Size = new Size(200, 50);
+                szoveg.Text = "Ebben az évben még nem foglaltak!";
+                szoveg.Location = new Point(20, 20);
+                szoveg.BackColor = Color.Transparent;
+                ujEvek.Controls.Add(szoveg);
+
+
+                System.Windows.Forms.Button megseGomb = new System.Windows.Forms.Button();
+                megseGomb.Text = "Mégse";
+                megseGomb.DialogResult = DialogResult.Cancel;
+                megseGomb.Location = new Point(20, 100);
+                ujEvek.Controls.Add(megseGomb);
+
+                System.Windows.Forms.Button folytatGomb = new System.Windows.Forms.Button();
+                folytatGomb.Text = "Folytatom";
+                folytatGomb.DialogResult = DialogResult.OK;
+                folytatGomb.Location = new Point(100, 100);
+                ujEvek.Controls.Add(folytatGomb);
+                #endregion
+
+                if (ujEvek.ShowDialog() == DialogResult.OK)
+                {
+                    FileStream fs = File.Create(fajlutvonal);
+                    MessageBox.Show("A fájl létrehozva.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void comboBox1_DropDownClosed(object sender, EventArgs e)
         {
             cellaszinvissza();
-
             #region filebe
             StreamReader olvas = new StreamReader("pitypang.txt");
-
             while (!olvas.EndOfStream)
             {
                 adatok.Add(new foglalas(olvas.ReadLine()));
-
             }
             olvas.Close();
             length = adatok.Count;
             utolsoElem = Convert.ToInt32(adatok[adatok.Count - 1].sorszam)+1;
             #endregion
-
             #region honap kivalasztasa
             vszobaszam = comboBox1.SelectedItem.ToString();
             for (int i = 0; i < length; i++)
@@ -360,9 +417,7 @@ namespace tesztCalendar
                 
             }
             #endregion
-
             dataGridView1.CellClick += cell_click;
-
             urescella();
         }
 
@@ -387,7 +442,6 @@ namespace tesztCalendar
                     DataGridViewRow row = dataGridView1.Rows[index1 - 1];
                     row.Cells[index2].Style.BackColor = Color.FromArgb(245, 97, 105);
                     row.Cells[index2].Style.ForeColor = Color.White;
-                    
                 }
                 index2++;
             }      
@@ -429,14 +483,11 @@ namespace tesztCalendar
         }
 
         private void urescella()
-        {
-            #region urescellak
-            
+        {          
             #region honapok
             Font boldFont = new Font(dataGridView1.Font, FontStyle.Bold);
             dataGridView1.Columns[0].Width = 80;
             
-
             dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
             dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
             dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
@@ -463,59 +514,39 @@ namespace tesztCalendar
             dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             #endregion
-
             #region feb
             // Az első sor utolsó cellájának törlése
             dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Value = null;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Value = null;
-                // Az utolsó cella nem szerkeszthető lesz
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].ReadOnly = true;
-                // Az utolsó cella háttérszínének beállítása
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.FromArgb(188, 223, 227);
-                dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Style.BackColor = Color.FromArgb(188, 223, 227);
-
-                #endregion
-
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Value = null;
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Value = null;
+            // Az utolsó cella nem szerkeszthető lesz
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].ReadOnly = true;
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].ReadOnly = true;
+            // Az utolsó cella háttérszínének beállítása
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 2].Style.BackColor = Color.FromArgb(188, 223, 227);
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 3].Style.BackColor = Color.FromArgb(188, 223, 227);
+            #endregion
             #region apr
-                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                
-                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                
-                dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
-
-                #endregion
-
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Value = null;
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+            #endregion
             #region jun
-                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                
-                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                
-                dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
-
-                #endregion
-
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Value = null;
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+            #endregion
             #region sep
-                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                
-                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                
-                dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
-
-                #endregion
-
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Value = null;
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
+            #endregion
             #region nov
-                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Value = null;
-                
-                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
-                
-                dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
-
-                #endregion
-            
+            dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Value = null;
+            dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].ReadOnly = true;
+            dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 1].Style.BackColor = Color.FromArgb(188, 223, 227);
             #endregion
         }
 
@@ -552,7 +583,6 @@ namespace tesztCalendar
             }
         }
 
-       
         private DataGridViewCell startdate = null;
         private DataGridViewCell enddate = null;
         private void cell_click(object sender, DataGridViewCellEventArgs kivalasztott)
@@ -566,8 +596,7 @@ namespace tesztCalendar
             {
                 enddate = dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex];
                 enddate.Style.BackColor = Color.Yellow;
-
-                ShowPopupForm();
+                Felugroablak();
             }
             else
             {
@@ -579,15 +608,18 @@ namespace tesztCalendar
             }
         }
 
-        private void ShowPopupForm()
+        private void Felugroablak()
         {
             #region FeluletLetrehozasa
             Form popupForm = new Form();
+            popupForm.StartPosition = FormStartPosition.Manual;
+            popupForm.Left = 750;
+            popupForm.Top = 250;
             popupForm.Text = "Foglalás";
             popupForm.Size = new Size(400, 250);
             popupForm.ControlBox = false;
             popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            popupForm.BackgroundImage = Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
 
             System.Windows.Forms.Label erkezes = new System.Windows.Forms.Label();
             erkezes.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
@@ -649,16 +681,14 @@ namespace tesztCalendar
             foglalGomb.Enabled = false;
             popupForm.Controls.Add(foglalGomb);
 
-            // Eseménykezelők hozzáadása a bemenetek ellenőrzéséhez
-            foglaloneveBox.TextChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
-            letszam.SelectedIndexChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
-            radioBtnZero.CheckedChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
-            radioBtnOne.CheckedChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
+            foglaloneveBox.TextChanged += (sender, e) => ellenorzes(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
+            letszam.SelectedIndexChanged += (sender, e) => ellenorzes(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
+            radioBtnZero.CheckedChanged += (sender, e) => ellenorzes(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
+            radioBtnOne.CheckedChanged += (sender, e) => ellenorzes(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
             #endregion
 
             if (popupForm.ShowDialog() == DialogResult.OK)
             {
-                // Az elmentési művelet
                 string reggeli = "";
                 int erkez = erkezhonapboszam(); ;
                 int tav = tavozhonapboszam();
@@ -681,6 +711,7 @@ namespace tesztCalendar
 
                 int szallaara = szallasara(erkez,tav,valasztottFo,reggeli);
                 System.Windows.Forms.Label foglalasPrice = new System.Windows.Forms.Label();
+                foglalasPrice.Size = new Size(200, 50);
                 foglalasPrice.Text = $"Szállás ára: {szallaara} Ft";
                 foglalasPrice.Location = new Point(20, 200);
                 foglalasPrice.BackColor = Color.Transparent;
@@ -735,7 +766,6 @@ namespace tesztCalendar
                     }
                 }
                 #endregion
-
                 #region nyar
                 if (erkez > 151 && erkez < 244 && tavoz < 151 && tavoz < 244)
                 {
@@ -767,7 +797,6 @@ namespace tesztCalendar
                     }
                 }
                 #endregion
-
                 #region osz
                 if (erkez > 243 && erkez < 365 && tavoz < 243 && tavoz < 365)
                 {
@@ -786,7 +815,7 @@ namespace tesztCalendar
             return osszeg;
         }
 
-        private void UpdateReservationButtonState(System.Windows.Forms.TextBox foglaloneveBox, System.Windows.Forms.ComboBox letszam, RadioButton radioBtnZero, RadioButton radioBtnOne, System.Windows.Forms.Button foglalGomb)
+        private void ellenorzes(System.Windows.Forms.TextBox foglaloneveBox, System.Windows.Forms.ComboBox letszam, RadioButton radioBtnZero, RadioButton radioBtnOne, System.Windows.Forms.Button foglalGomb)
         {
             bool inputsValid = !string.IsNullOrWhiteSpace(foglaloneveBox.Text) && letszam.SelectedItem != null && (radioBtnZero.Checked || radioBtnOne.Checked);
             foglalGomb.Enabled = inputsValid;
@@ -905,8 +934,6 @@ namespace tesztCalendar
             #endregion
             return nap;
         }
-
-
     }
 }
 

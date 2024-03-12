@@ -992,3 +992,5 @@
 992 27 3 8 2 1 Szalai_Ágoston
 993 1 92 93 1 0 Hoijiji
 994 23 92 95 2 1 Kolompár
+995 24 4 7 1 0 hfhthfh
+996 25 2 4 2 0 Kis_Péter
