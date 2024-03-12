@@ -985,3 +985,10 @@
 985 1 2 5 3 1 Nagy_Gábor
 986 1 7 8 1 0 kis_pista
 987 2 2 7 2 0 Kis_Pál
+988 17 2 4 2 1 Nagy_Ádi
+989 3 3 7 2 0 Kis_Bálint
+990 23 2 7 3 1 Huszár_János
+991 10 2 6 3 0 Nagy_Ádámosz
+992 27 3 8 2 1 Szalai_Ágoston
+993 1 92 93 1 0 Hoijiji
+994 23 92 95 2 1 Kolompár

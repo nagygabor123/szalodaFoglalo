@@ -49,6 +49,7 @@ namespace tesztCalendar
 
         string vszobaszam = "1";
         int utolsoElem = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -377,7 +378,6 @@ namespace tesztCalendar
             }
         }
 
-
         private void szinek(int index1,int index2,int elteltnap)
         {
             for (int j = 0; j < elteltnap+1; j++)
@@ -427,8 +427,6 @@ namespace tesztCalendar
             }
             
         }
-
-        
 
         private void urescella()
         {
@@ -557,8 +555,6 @@ namespace tesztCalendar
        
         private DataGridViewCell startdate = null;
         private DataGridViewCell enddate = null;
-
-
         private void cell_click(object sender, DataGridViewCellEventArgs kivalasztott)
         {
             if (startdate == null)
@@ -582,10 +578,10 @@ namespace tesztCalendar
                 cell_click(sender, kivalasztott);
             }
         }
-        
+
         private void ShowPopupForm()
         {
-            #region Felulet letrehozasa
+            #region FeluletLetrehozasa
             Form popupForm = new Form();
             popupForm.Text = "Foglalás";
             popupForm.Size = new Size(400, 250);
@@ -593,33 +589,33 @@ namespace tesztCalendar
             popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
             popupForm.BackgroundImage = Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
 
-            System.Windows.Forms.Label startLabel = new System.Windows.Forms.Label();
-            startLabel.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
-            startLabel.Location = new Point(20, 20);
-            startLabel.BackColor = Color.Transparent;
-            popupForm.Controls.Add(startLabel);
+            System.Windows.Forms.Label erkezes = new System.Windows.Forms.Label();
+            erkezes.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
+            erkezes.Location = new Point(20, 20);
+            erkezes.BackColor = Color.Transparent;
+            popupForm.Controls.Add(erkezes);
 
-            System.Windows.Forms.Label endLabel = new System.Windows.Forms.Label();
-            endLabel.Text = "Távozás: " + enddate.OwningRow.Cells[0].Value.ToString() + "." + enddate.Value.ToString();
-            endLabel.Location = new Point(20, 50);
-            endLabel.BackColor = Color.Transparent;
-            popupForm.Controls.Add(endLabel);
+            System.Windows.Forms.Label tavozas = new System.Windows.Forms.Label();
+            tavozas.Text = "Távozás: " + enddate.OwningRow.Cells[0].Value.ToString() + "." + enddate.Value.ToString();
+            tavozas.Location = new Point(20, 50);
+            tavozas.BackColor = Color.Transparent;
+            popupForm.Controls.Add(tavozas);
 
-            System.Windows.Forms.Label roomLabel = new System.Windows.Forms.Label();
-            roomLabel.Text = "Szobaszám: " + vszobaszam;
-            roomLabel.Location = new Point(20, 80);
-            roomLabel.BackColor = Color.Transparent;
-            popupForm.Controls.Add(roomLabel);
+            System.Windows.Forms.Label szoba = new System.Windows.Forms.Label();
+            szoba.Text = "Szobaszám: " + vszobaszam;
+            szoba.Location = new Point(20, 80);
+            szoba.BackColor = Color.Transparent;
+            popupForm.Controls.Add(szoba);
 
-            System.Windows.Forms.Label nameLabel = new System.Windows.Forms.Label();
-            nameLabel.Text = "Név:";
-            nameLabel.Location = new Point(130, 20);
-            nameLabel.BackColor = Color.Transparent;
-            popupForm.Controls.Add(nameLabel);
+            System.Windows.Forms.Label foglaloneve = new System.Windows.Forms.Label();
+            foglaloneve.Text = "Név:";
+            foglaloneve.Location = new Point(130, 20);
+            foglaloneve.BackColor = Color.Transparent;
+            popupForm.Controls.Add(foglaloneve);
 
-            System.Windows.Forms.TextBox nameTextBox = new System.Windows.Forms.TextBox();
-            nameTextBox.Location = new Point(135, 45);
-            popupForm.Controls.Add(nameTextBox);
+            System.Windows.Forms.TextBox foglaloneveBox = new System.Windows.Forms.TextBox();
+            foglaloneveBox.Location = new Point(135, 45);
+            popupForm.Controls.Add(foglaloneveBox);
 
             System.Windows.Forms.ComboBox letszam = new System.Windows.Forms.ComboBox();
             letszam.Location = new Point(160, 80);
@@ -637,31 +633,38 @@ namespace tesztCalendar
             RadioButton radioBtnOne = new RadioButton();
             radioBtnOne.Text = "Nem kérek";
             radioBtnOne.Location = new Point(20, 140);
-            radioBtnOne.BackColor = Color.Transparent;  
+            radioBtnOne.BackColor = Color.Transparent;
             popupForm.Controls.Add(radioBtnOne);
 
-            System.Windows.Forms.Button cancelButton = new System.Windows.Forms.Button();
-            cancelButton.Text = "Mégse";
-            cancelButton.DialogResult = DialogResult.Cancel;
-            cancelButton.Location = new Point(20, 170);
-            popupForm.Controls.Add(cancelButton);
+            System.Windows.Forms.Button megseGomb = new System.Windows.Forms.Button();
+            megseGomb.Text = "Mégse";
+            megseGomb.DialogResult = DialogResult.Cancel;
+            megseGomb.Location = new Point(20, 170);
+            popupForm.Controls.Add(megseGomb);
 
-            System.Windows.Forms.Button reserveButton = new System.Windows.Forms.Button();
-            reserveButton.Text = "Foglalás";
-            reserveButton.DialogResult = DialogResult.OK;
-            reserveButton.Location = new Point(100, 170);
-            popupForm.Controls.Add(reserveButton);
+            System.Windows.Forms.Button foglalGomb = new System.Windows.Forms.Button();
+            foglalGomb.Text = "Foglalás";
+            foglalGomb.DialogResult = DialogResult.OK;
+            foglalGomb.Location = new Point(100, 170);
+            foglalGomb.Enabled = false;
+            popupForm.Controls.Add(foglalGomb);
+
+            // Eseménykezelők hozzáadása a bemenetek ellenőrzéséhez
+            foglaloneveBox.TextChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
+            letszam.SelectedIndexChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
+            radioBtnZero.CheckedChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
+            radioBtnOne.CheckedChanged += (sender, e) => UpdateReservationButtonState(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
             #endregion
 
             if (popupForm.ShowDialog() == DialogResult.OK)
             {
-                #region valtozok letrehozas
+                // Az elmentési művelet
                 string reggeli = "";
-                int erkez = erkezhonapboszam();;
+                int erkez = erkezhonapboszam(); ;
                 int tav = tavozhonapboszam();
-                string valasztottFo = Convert.ToString(letszam.SelectedItem);
-                string nev = nameTextBox.Text;  
-                
+                int valasztottFo = Convert.ToInt32(letszam.SelectedItem);
+                string nev = foglaloneveBox.Text;
+
                 if (radioBtnZero.Checked)
                 {
                     reggeli = "0";
@@ -670,12 +673,123 @@ namespace tesztCalendar
                 {
                     reggeli = "1";
                 }
-                #endregion
+
                 StreamWriter ir = File.AppendText(@"D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\pitypang.txt");
                 ir.Write($"\n{utolsoElem} {vszobaszam} {erkez} {tav} {valasztottFo} {reggeli} {nev}");
-                ir.Close(); 
-                MessageBox.Show("Foglalás sikeres!");
+                ir.Close();
+                MessageBox.Show("Sikeres foglalás !");
+
+                int szallaara = szallasara(erkez,tav,valasztottFo,reggeli);
+                System.Windows.Forms.Label foglalasPrice = new System.Windows.Forms.Label();
+                foglalasPrice.Text = $"Szállás ára: {szallaara} Ft";
+                foglalasPrice.Location = new Point(20, 200);
+                foglalasPrice.BackColor = Color.Transparent;
+                this.Controls.Add(foglalasPrice);
             }
+
+        }
+
+        private int szallasara(int erkez, int tavoz,int valasztottFo,string reggel)
+        {
+            int osszeg = 0;
+            int tavasz = 9000;
+            int nyar = 10000;
+            int osz = 8000;
+            int potagy = 2000;
+            int reggeli = 1100;
+            int eltelnap = tavoz-erkez;    
+
+            for (int i = 0; i < length; i++)
+            {
+                //tavasz -> 1 - 151
+                //nyar -> 152 - 243
+                //osz - > 244 - 365
+                #region tavasz
+                if (erkez > 0 && erkez < 152 && tavasz > 0 && tavoz<152)
+                {
+                    osszeg = eltelnap * tavasz;
+                    if (valasztottFo == 3)
+                    {
+                        osszeg += potagy * eltelnap;
+                    }
+                    if (reggel == "1")
+                    {
+                        osszeg += eltelnap * valasztottFo * reggeli;
+                    }
+                }
+                if (erkez > 0 && erkez < 152 && tavoz > 151 && tavoz < 244)
+                {
+                    int ujhonap = eltelnap- (tavoz - 151);
+                    int ehonap = eltelnap -ujhonap;
+                    int osszeg1 = ujhonap * nyar;
+                    int osszeg2 = ehonap *tavasz;
+                    osszeg = osszeg1+ osszeg2;  
+
+                    if (valasztottFo == 3)
+                    {
+                        osszeg += potagy * eltelnap;
+                    }
+                    if (reggel == "1")
+                    {
+                        osszeg += eltelnap * valasztottFo * reggeli;
+                    }
+                }
+                #endregion
+
+                #region nyar
+                if (erkez > 151 && erkez < 244 && tavoz < 151 && tavoz < 244)
+                {
+                    osszeg = eltelnap * nyar;
+                    if (valasztottFo == 3)
+                    {
+                        osszeg += potagy * eltelnap;
+                    }
+                    if (reggel == "1")
+                    {
+                        osszeg += eltelnap * valasztottFo * reggeli;
+                    }
+                }
+                if (erkez > 151 && erkez < 244 && tavoz < 243 && tavoz < 365)
+                {
+                    int ujhonap = eltelnap - (tavoz - 244);
+                    int ehonap = eltelnap - ujhonap;
+                    int osszeg1 = ujhonap * osz;
+                    int osszeg2 = ehonap * nyar;
+                    osszeg = osszeg1 + osszeg2;
+
+                    if (valasztottFo == 3)
+                    {
+                        osszeg += potagy * eltelnap;
+                    }
+                    if (reggel == "1")
+                    {
+                        osszeg += eltelnap * valasztottFo * reggeli;
+                    }
+                }
+                #endregion
+
+                #region osz
+                if (erkez > 243 && erkez < 365 && tavoz < 243 && tavoz < 365)
+                {
+                    osszeg = eltelnap * osz;
+                    if (valasztottFo == 3)
+                    {
+                        osszeg += potagy * eltelnap;
+                    }
+                    if (reggel == "1")
+                    {
+                        osszeg += eltelnap * valasztottFo * reggeli;
+                    }
+                }
+                #endregion
+            }
+            return osszeg;
+        }
+
+        private void UpdateReservationButtonState(System.Windows.Forms.TextBox foglaloneveBox, System.Windows.Forms.ComboBox letszam, RadioButton radioBtnZero, RadioButton radioBtnOne, System.Windows.Forms.Button foglalGomb)
+        {
+            bool inputsValid = !string.IsNullOrWhiteSpace(foglaloneveBox.Text) && letszam.SelectedItem != null && (radioBtnZero.Checked || radioBtnOne.Checked);
+            foglalGomb.Enabled = inputsValid;
         }
 
         private int erkezhonapboszam()
