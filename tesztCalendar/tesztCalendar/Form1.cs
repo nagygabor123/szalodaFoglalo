@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace tesztCalendar
@@ -47,7 +48,7 @@ namespace tesztCalendar
         #endregion
 
         string vszobaszam = "1";
-
+        int utolsoElem = 0;
         public Form1()
         {
             InitializeComponent();
@@ -79,6 +80,7 @@ namespace tesztCalendar
             }
             olvas.Close();
             length = adatok.Count;
+            utolsoElem = Convert.ToInt32(adatok[adatok.Count - 1].sorszam)+1;
             #endregion
 
             #region honap kivalasztasa
@@ -580,12 +582,13 @@ namespace tesztCalendar
                 cell_click(sender, kivalasztott);
             }
         }
-
+        
         private void ShowPopupForm()
         {
+            #region Felulet letrehozasa
             Form popupForm = new Form();
             popupForm.Text = "Foglalás";
-            popupForm.Size = new Size(400, 200);
+            popupForm.Size = new Size(400, 250);
             popupForm.ControlBox = false;
             popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
             popupForm.BackgroundImage = Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
@@ -608,24 +611,189 @@ namespace tesztCalendar
             roomLabel.BackColor = Color.Transparent;
             popupForm.Controls.Add(roomLabel);
 
-            Button cancelButton = new Button();
+            System.Windows.Forms.Label nameLabel = new System.Windows.Forms.Label();
+            nameLabel.Text = "Név:";
+            nameLabel.Location = new Point(130, 20);
+            nameLabel.BackColor = Color.Transparent;
+            popupForm.Controls.Add(nameLabel);
+
+            System.Windows.Forms.TextBox nameTextBox = new System.Windows.Forms.TextBox();
+            nameTextBox.Location = new Point(135, 45);
+            popupForm.Controls.Add(nameTextBox);
+
+            System.Windows.Forms.ComboBox letszam = new System.Windows.Forms.ComboBox();
+            letszam.Location = new Point(160, 80);
+            letszam.Items.Add(1);
+            letszam.Items.Add(2);
+            letszam.Items.Add(3);
+            popupForm.Controls.Add(letszam);
+
+            RadioButton radioBtnZero = new RadioButton();
+            radioBtnZero.Text = "Kérek";
+            radioBtnZero.Location = new Point(20, 110);
+            radioBtnZero.BackColor = Color.Transparent;
+            popupForm.Controls.Add(radioBtnZero);
+
+            RadioButton radioBtnOne = new RadioButton();
+            radioBtnOne.Text = "Nem kérek";
+            radioBtnOne.Location = new Point(20, 140);
+            radioBtnOne.BackColor = Color.Transparent;  
+            popupForm.Controls.Add(radioBtnOne);
+
+            System.Windows.Forms.Button cancelButton = new System.Windows.Forms.Button();
             cancelButton.Text = "Mégse";
             cancelButton.DialogResult = DialogResult.Cancel;
-            cancelButton.Location = new Point(20, 110);
+            cancelButton.Location = new Point(20, 170);
             popupForm.Controls.Add(cancelButton);
 
-            Button reserveButton = new Button();
+            System.Windows.Forms.Button reserveButton = new System.Windows.Forms.Button();
             reserveButton.Text = "Foglalás";
             reserveButton.DialogResult = DialogResult.OK;
-            reserveButton.Location = new Point(100, 110);
+            reserveButton.Location = new Point(100, 170);
             popupForm.Controls.Add(reserveButton);
+            #endregion
 
             if (popupForm.ShowDialog() == DialogResult.OK)
             {
+                #region valtozok letrehozas
+                string reggeli = "";
+                int erkez = erkezhonapboszam();;
+                int tav = tavozhonapboszam();
+                string valasztottFo = Convert.ToString(letszam.SelectedItem);
+                string nev = nameTextBox.Text;  
+                
+                if (radioBtnZero.Checked)
+                {
+                    reggeli = "0";
+                }
+                else if (radioBtnOne.Checked)
+                {
+                    reggeli = "1";
+                }
+                #endregion
+                StreamWriter ir = File.AppendText(@"D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\pitypang.txt");
+                ir.Write($"\n{utolsoElem} {vszobaszam} {erkez} {tav} {valasztottFo} {reggeli} {nev}");
+                ir.Close(); 
                 MessageBox.Show("Foglalás sikeres!");
             }
+        }
+
+        private int erkezhonapboszam()
+        {
+            string honap = startdate.OwningRow.Cells[0].Value.ToString();
+            int nap = Convert.ToInt32(startdate.Value);
+            #region honap kivalasztasa
+            if (honap == "Január")
+            {
+                return nap;        
+            }
+            if (honap == "Február")
+            {
+                return nap + 32;
+            }
+            if (honap == "Március")
+            {
+                return nap + 60;
+            }
+            if (honap == "Április")
+            {
+                return nap + 91;
+            }
+            if (honap == "Május")
+            {
+                return nap + 121;
+            }
+            if (honap == "Junius")
+            {
+                return nap + 152;
+            }
+            if (honap == "Július")
+            {
+                return nap + 182;
+            }
+            if (honap == "Augusztus")
+            {
+                return nap + 213;
+            }
+            if (honap == "Szeptember")
+            {
+                return nap + 244;
+            }
+            if (honap == "Október")
+            {
+                return nap + 274;
+            }
+            if (honap == "November")
+            {
+                return nap + 305;
+            }
+            if (honap == "December")
+            {
+                return nap + 335;
+            }
+            #endregion
+            return nap;   
+        }
+
+        private int tavozhonapboszam()
+        {
+            string honap = enddate.OwningRow.Cells[0].Value.ToString();
+            int nap = Convert.ToInt32(enddate.Value);
+            #region honap kivalasztasa
+            if (honap == "Január")
+            {
+                return nap;
+            }
+            if (honap == "Február")
+            {
+                return nap + 32;
+            }
+            if (honap == "Március")
+            {
+                return nap + 60;
+            }
+            if (honap == "Április")
+            {
+                return nap + 91;
+            }
+            if (honap == "Május")
+            {
+                return nap + 121;
+            }
+            if (honap == "Junius")
+            {
+                return nap + 152;
+            }
+            if (honap == "Július")
+            {
+                return nap + 182;
+            }
+            if (honap == "Augusztus")
+            {
+                return nap + 213;
+            }
+            if (honap == "Szeptember")
+            {
+                return nap + 244;
+            }
+            if (honap == "Október")
+            {
+                return nap + 274;
+            }
+            if (honap == "November")
+            {
+                return nap + 305;
+            }
+            if (honap == "December")
+            {
+                return nap + 335;
+            }
+            #endregion
+            return nap;
         }
 
 
     }
 }
+
+

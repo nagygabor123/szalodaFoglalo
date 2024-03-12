@@ -982,3 +982,6 @@
 982 8 349 361 2 0 Molnar_Laszlo
 983 9 350 353 2 1 Illes_Nicoletta
 984 17 350 362 2 0 Kovacs_Ibolya
+985 1 2 5 3 1 Nagy_Gábor
+986 1 7 8 1 0 kis_pista
+987 2 2 7 2 0 Kis_Pál
