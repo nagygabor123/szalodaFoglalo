@@ -49,6 +49,8 @@ namespace tesztCalendar
 
         string vszobaszam = "1";
         int utolsoElem = 0;
+        string fajlutvonal = @"D:\app\szalodaFoglalo\Lists\pitypang.txt";
+        string evjarat = "pitypang";
 
         public Form1()
         {
@@ -78,12 +80,14 @@ namespace tesztCalendar
 
         private void ujevek(object sender, EventArgs e)
         {
-            string evjarat = comboBox2.SelectedItem.ToString();
-            string fajlutvonal = @"D:\app\szalodaFoglalo\" + evjarat + ".txt";
+            evjarat = comboBox2.SelectedItem.ToString();
+            fajlutvonal = @"\app\szalodaFoglalo\Lists\" + evjarat + ".txt";
 
             if (File.Exists(fajlutvonal))
             {
-                MessageBox.Show("A fájl létezik.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"A {evjarat} évi foglalások megnyitása!", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cellaszinvissza();
+                urescella();
             }
             else
             {
@@ -119,11 +123,12 @@ namespace tesztCalendar
                 folytatGomb.Location = new Point(100, 100);
                 ujEvek.Controls.Add(folytatGomb);
                 #endregion
-
                 if (ujEvek.ShowDialog() == DialogResult.OK)
                 {
                     FileStream fs = File.Create(fajlutvonal);
-                    MessageBox.Show("A fájl létrehozva.", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"A {evjarat} évet ezennel megnyitottuk!", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cellaszinvissza();
+                    urescella();
                 }
             }
         }
@@ -132,22 +137,28 @@ namespace tesztCalendar
         {
             cellaszinvissza();
             #region filebe
-            StreamReader olvas = new StreamReader("pitypang.txt");
+            adatok.Clear();
+            StreamReader olvas = new StreamReader(fajlutvonal);
             while (!olvas.EndOfStream)
             {
                 adatok.Add(new foglalas(olvas.ReadLine()));
             }
             olvas.Close();
             length = adatok.Count;
-            utolsoElem = Convert.ToInt32(adatok[adatok.Count - 1].sorszam)+1;
+            if (length >0)
+            {
+                utolsoElem = Convert.ToInt32(adatok[adatok.Count - 1].sorszam)+1;
+            }
+            else
+            {
+                utolsoElem = 0; 
+            }
+            
             #endregion
             #region honap kivalasztasa
             vszobaszam = comboBox1.SelectedItem.ToString();
             for (int i = 0; i < length; i++)
             {
-                //szoba 1-27
-                
-
                 #region 01 jan
                 //1(január) -> 1-31
                 //2(február) -> 32-59
@@ -172,7 +183,6 @@ namespace tesztCalendar
                 }
 
                 #endregion
-
                 #region 02 feb
                 //2(február) -> 32-59
                 //3(márcuis) -> 60-90
@@ -195,7 +205,6 @@ namespace tesztCalendar
                     szinek(3, 1, adatok[i].tavoz - 59 - 1);
                 }
                 #endregion
-
                 #region 03 mar
                 //3(márcuis) -> 60-90
                 //4(április) -> 91-120
@@ -218,7 +227,6 @@ namespace tesztCalendar
                     szinek(4, 1, adatok[i].tavoz - 90 - 1);
                 }
                 #endregion
-
                 #region 04 apr
                 //4(április) -> 91-120
                 //5(május) -> 121-151
@@ -241,7 +249,6 @@ namespace tesztCalendar
                     szinek(5, 1, adatok[i].tavoz - 120 - 1);
                 }
                 #endregion
-
                 #region 05 maj
                 //5(május) -> 121-151
                 //6(junius) -> 152-181
@@ -263,7 +270,6 @@ namespace tesztCalendar
                     szinek(6, 1, adatok[i].tavoz - 151 - 1);
                 }
                 #endregion
-
                 #region 06 jun
                 //6(junius) -> 152-181
                 //7(julius) -> 182-212
@@ -286,7 +292,6 @@ namespace tesztCalendar
                     szinek(7, 1, adatok[i].tavoz - 181 - 1);
                 }
                 #endregion
-
                 #region 07 jul
                 //7(julius) -> 182-212
                 //8(agusztus) -> 213-243
@@ -309,7 +314,6 @@ namespace tesztCalendar
                     szinek(8, 1, adatok[i].tavoz - 212 - 1);
                 }
                 #endregion
-
                 #region 08 aug
                 //8(agusztus) -> 213-243
                 //9(szeptember) -> 244-273
@@ -332,7 +336,6 @@ namespace tesztCalendar
                     szinek(9, 1, adatok[i].tavoz - 243 - 1);
                 }
                 #endregion
-
                 #region 09 sep
                 //9(szeptember) -> 244-273
                 //10(október) -> 274-304
@@ -355,7 +358,6 @@ namespace tesztCalendar
                     szinek(10, 1, adatok[i].tavoz - 273 - 1);
                 }
                 #endregion
-
                 #region 10 okt
                 //10(október) -> 274-304
                 //11(november) -> 305-334
@@ -378,7 +380,6 @@ namespace tesztCalendar
                     szinek(11, 1, adatok[i].tavoz - 304 - 1);
                 }
                 #endregion
-
                 #region 11 nov
                 //11(november) -> 305-334
                 //12(december) -> 335-365
@@ -401,7 +402,6 @@ namespace tesztCalendar
                     szinek(12, 1, adatok[i].tavoz - 334 - 1);
                 }
                 #endregion
-
                 #region 12 dec
                 //12(december) -> 335-365
                 if (adatok[i].szobaszam == vszobaszam &&
@@ -413,8 +413,6 @@ namespace tesztCalendar
                     szinek(12, adatok[i].erkzes - 334, adatok[i].eltoltnapok);
                 }
                 #endregion
-
-                
             }
             #endregion
             dataGridView1.CellClick += cell_click;
@@ -641,29 +639,31 @@ namespace tesztCalendar
 
             System.Windows.Forms.Label foglaloneve = new System.Windows.Forms.Label();
             foglaloneve.Text = "Név:";
-            foglaloneve.Location = new Point(130, 20);
+            foglaloneve.Location = new Point(150, 20);
             foglaloneve.BackColor = Color.Transparent;
             popupForm.Controls.Add(foglaloneve);
 
             System.Windows.Forms.TextBox foglaloneveBox = new System.Windows.Forms.TextBox();
-            foglaloneveBox.Location = new Point(135, 45);
+            foglaloneveBox.Location = new Point(155, 45);
             popupForm.Controls.Add(foglaloneveBox);
 
             System.Windows.Forms.ComboBox letszam = new System.Windows.Forms.ComboBox();
-            letszam.Location = new Point(160, 80);
+            letszam.Location = new Point(155, 80);
             letszam.Items.Add(1);
             letszam.Items.Add(2);
             letszam.Items.Add(3);
             popupForm.Controls.Add(letszam);
 
             RadioButton radioBtnZero = new RadioButton();
-            radioBtnZero.Text = "Kérek";
+            radioBtnZero.Size = new Size(150, 30);
+            radioBtnZero.Text = "Kérek reggelit";
             radioBtnZero.Location = new Point(20, 110);
             radioBtnZero.BackColor = Color.Transparent;
             popupForm.Controls.Add(radioBtnZero);
 
             RadioButton radioBtnOne = new RadioButton();
-            radioBtnOne.Text = "Nem kérek";
+            radioBtnOne.Size = new Size(150, 30);
+            radioBtnOne.Text = "Nem kérek reggelit";
             radioBtnOne.Location = new Point(20, 140);
             radioBtnOne.BackColor = Color.Transparent;
             popupForm.Controls.Add(radioBtnOne);
@@ -704,8 +704,8 @@ namespace tesztCalendar
                     reggeli = "1";
                 }
 
-                StreamWriter ir = File.AppendText(@"D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\pitypang.txt");
-                ir.Write($"\n{utolsoElem} {vszobaszam} {erkez} {tav} {valasztottFo} {reggeli} {nev}");
+                StreamWriter ir = File.AppendText(fajlutvonal);
+                ir.Write($"{utolsoElem} {vszobaszam} {erkez} {tav} {valasztottFo} {reggeli} {nev}\n");
                 ir.Close();
                 MessageBox.Show("Sikeres foglalás !");
 
@@ -717,7 +717,6 @@ namespace tesztCalendar
                 foglalasPrice.BackColor = Color.Transparent;
                 this.Controls.Add(foglalasPrice);
             }
-
         }
 
         private int szallasara(int erkez, int tavoz,int valasztottFo,string reggel)
