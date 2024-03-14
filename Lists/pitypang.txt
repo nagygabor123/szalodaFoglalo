@@ -984,3 +984,13 @@
 984 17 350 362 2 0 Kovacs_Ibolya
 985 24 3 8 3 0 Nagy_Gabor
 985 24 33 36 1 1 jijoijioj
+986 24 62 65 2 1 kispéter
+987 25 2 3 1 1 oijijijiojjo
+988 22 1 2 2 0 gdfgdgf
+989 18 343 344 1 1 rgdgrdg
+990 22 4 6 1 0 dgrgdrdrg
+991 20 1 8 3 1 Kis_Péter
+992 22 7 11 3 0 gfdgfdg
+993 16 362 366 1 0 gdgrdrgdrg
+994 22 92 103 3 1 hfhfttfh
+995 22 61 66 2 0 gcfgcfg

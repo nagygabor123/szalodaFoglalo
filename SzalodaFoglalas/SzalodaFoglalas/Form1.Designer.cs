@@ -141,8 +141,9 @@
             this.feladat2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(78)))));
             this.feladat2.Location = new System.Drawing.Point(63, 76);
             this.feladat2.Name = "feladat2";
-            this.feladat2.Size = new System.Drawing.Size(0, 33);
+            this.feladat2.Size = new System.Drawing.Size(62, 33);
             this.feladat2.TabIndex = 6;
+            this.feladat2.Text = "bfbfb";
             // 
             // label2
             // 

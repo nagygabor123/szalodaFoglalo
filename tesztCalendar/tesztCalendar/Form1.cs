@@ -49,9 +49,12 @@ namespace tesztCalendar
 
         string vszobaszam = "1";
         int utolsoElem = 0;
-        string fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt";
+        string fajlutvonal = @"D:\app\szalodaFoglalo\Lists\pitypang.txt";// C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo
         string evjarat = "pitypang";
 
+        [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        public static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+        
         public Form1()
         {
             this.StartPosition = FormStartPosition.Manual;
@@ -59,6 +62,7 @@ namespace tesztCalendar
             this.Top = 200;
             InitializeComponent();
             InitializeDataGridView();
+            panelekkinezet();
             urescella();
             #region ComboBoxok beallitasa
             for (int i = 1; i <= 27; i++)
@@ -78,10 +82,32 @@ namespace tesztCalendar
             dataGridView1.CellClick -= cell_click;
         }
 
+        private void fileBeolvasasa()
+        {
+            #region filebe
+            adatok.Clear();
+            StreamReader olvas = new StreamReader(fajlutvonal);
+            while (!olvas.EndOfStream)
+            {
+                adatok.Add(new foglalas(olvas.ReadLine()));
+            }
+            olvas.Close();
+            length = adatok.Count;
+            if (length >0)
+            {
+                utolsoElem = Convert.ToInt32(adatok[adatok.Count - 1].sorszam)+1;
+            }
+            else
+            {
+                utolsoElem = 0; 
+            }
+            
+            #endregion
+        }
         private void ujevek(object sender, EventArgs e)
         {
             evjarat = comboBox2.SelectedItem.ToString();
-            fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\" + evjarat + ".txt";
+            fajlutvonal = @"D:\app\szalodaFoglalo\Lists\" + evjarat + ".txt";
 
             if (File.Exists(fajlutvonal))
             {
@@ -100,7 +126,7 @@ namespace tesztCalendar
                 ujEvek.Top = 400;
                 ujEvek.ControlBox = false;
                 ujEvek.FormBorderStyle = FormBorderStyle.FixedDialog;
-                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\3.png");
+                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
 
 
                 System.Windows.Forms.Label szoveg = new System.Windows.Forms.Label();
@@ -136,25 +162,7 @@ namespace tesztCalendar
         private void comboBox1_DropDownClosed(object sender, EventArgs e)
         {
             cellaszinvissza();
-            #region filebe
-            adatok.Clear();
-            StreamReader olvas = new StreamReader(fajlutvonal);
-            while (!olvas.EndOfStream)
-            {
-                adatok.Add(new foglalas(olvas.ReadLine()));
-            }
-            olvas.Close();
-            length = adatok.Count;
-            if (length >0)
-            {
-                utolsoElem = Convert.ToInt32(adatok[adatok.Count - 1].sorszam)+1;
-            }
-            else
-            {
-                utolsoElem = 0; 
-            }
-            
-            #endregion
+            fileBeolvasasa();
             #region honap kivalasztasa
             vszobaszam = comboBox1.SelectedItem.ToString();
             for (int i = 0; i < length; i++)
@@ -455,7 +463,7 @@ namespace tesztCalendar
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ReadOnly = true;
-            
+
             // Oszlop hozzáadása
             dataGridView1.Columns.Add("MColumn", "Hónapok");
 
@@ -499,6 +507,32 @@ namespace tesztCalendar
             dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
             dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 32].Style.BackColor = Color.FromArgb(188, 223, 227);
 
+            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+            dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 32].Style.ForeColor = Color.FromArgb(37, 35, 78);
+
+            dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[3].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[4].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 32].Style.Font = new Font("Microsoft YaHei", 10);
+            /*
             dataGridView1.Rows[0].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             dataGridView1.Rows[1].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             dataGridView1.Rows[2].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
@@ -507,10 +541,11 @@ namespace tesztCalendar
             dataGridView1.Rows[5].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             dataGridView1.Rows[6].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             dataGridView1.Rows[7].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
-            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            dataGridView1.Rows[8].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont; 
             dataGridView1.Rows[9].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             dataGridView1.Rows[10].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
             dataGridView1.Rows[11].Cells[dataGridView1.ColumnCount - 32].Style.Font = boldFont;
+            */
             #endregion
             #region feb
             // Az első sor utolsó cellájának törlése
@@ -617,7 +652,7 @@ namespace tesztCalendar
             popupForm.Size = new Size(400, 250);
             popupForm.ControlBox = false;
             popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\3.png");
+            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
 
             System.Windows.Forms.Label erkezes = new System.Windows.Forms.Label();
             erkezes.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
@@ -711,10 +746,12 @@ namespace tesztCalendar
 
                 int szallaara = szallasara(erkez,tav,valasztottFo,reggeli);
                 System.Windows.Forms.Label foglalasPrice = new System.Windows.Forms.Label();
-                foglalasPrice.Size = new Size(200, 50);
+                foglalasPrice.Size = new Size(200, 30);
                 foglalasPrice.Text = $"Szállás ára: {szallaara} Ft";
                 foglalasPrice.Location = new Point(20, 200);
-                foglalasPrice.BackColor = Color.Transparent;
+                foglalasPrice.BackColor = Color.White;
+                foglalasPrice.TextAlign = ContentAlignment.MiddleCenter;
+                foglalasPrice.Font = new Font(foglalasPrice.Font.FontFamily,12f, FontStyle.Bold);
                 this.Controls.Add(foglalasPrice);
             }
         }
@@ -930,6 +967,459 @@ namespace tesztCalendar
             #endregion
             return nap;
         }
+
+        private void panelekkinezet()
+        {
+            IntPtr roundpanel1 = CreateRoundRectRgn(0, 0, panel1.Width, panel1.Height, 5, 5);
+            panel1.BackColor = Color.FromArgb(83, 170, 158);
+            panel1.Region = Region.FromHrgn(roundpanel1);
+
+            IntPtr roundpanel2 = CreateRoundRectRgn(0, 0, panel2.Width, panel2.Height, 5, 5);
+            panel2.BackColor = Color.FromArgb(83, 170, 158);
+            panel2.Region = Region.FromHrgn(roundpanel2);
+
+            IntPtr roundpanel3 = CreateRoundRectRgn(0, 0, panel3.Width, panel3.Height, 5, 5);
+            panel3.BackColor = Color.FromArgb(83, 170, 158);
+            panel3.Region = Region.FromHrgn(roundpanel3);
+
+            IntPtr roundpanel4 = CreateRoundRectRgn(0, 0, panel4.Width, panel4.Height, 5, 5);
+            panel4.Region = Region.FromHrgn(roundpanel4);
+            panel4.BackColor = Color.FromArgb(128, Color.White);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.FlatAppearance.BorderSize = 0;
+
+            IntPtr roundbutton1 = CreateRoundRectRgn(0, 0, button1.Width, button1.Height, 5, 5);
+            button1.BackColor = Color.FromArgb(83, 170, 158);
+            button1.ForeColor = Color.FromArgb(128, Color.White);
+            button1.Region = Region.FromHrgn(roundbutton1);
+
+            IntPtr roundvalasztopanel = CreateRoundRectRgn(0, 0, valasztopanel.Width, valasztopanel.Height, 5, 5);
+            valasztopanel.Region = Region.FromHrgn(roundvalasztopanel);
+            valasztopanel.BackColor = Color.FromArgb(128, Color.White);
+
+            IntPtr roundevekp = CreateRoundRectRgn(0, 0, evekpanel.Width, evekpanel.Height, 5, 5);
+            evekpanel.BackColor = Color.FromArgb(83, 170, 158);
+            evekpanel.Region = Region.FromHrgn(roundevekp);
+
+            IntPtr roundszobap = CreateRoundRectRgn(0, 0, szobapanel.Width, szobapanel.Height, 5, 5);
+            szobapanel.BackColor = Color.FromArgb(83, 170, 158);
+            szobapanel.Region = Region.FromHrgn(roundszobap);
+
+            IntPtr roundevek = CreateRoundRectRgn(0, 0, evek.Width, evek.Height, 5, 5);
+            evek.ForeColor = Color.FromArgb(128, Color.White);
+            comboBox2.BackColor = Color.FromArgb(83, 170, 158);
+            evek.Region = Region.FromHrgn(roundevek);
+
+            IntPtr roundszoba = CreateRoundRectRgn(0, 0, szabaszam.Width, szabaszam.Height, 5, 5);
+            szabaszam.ForeColor = Color.FromArgb(128, Color.White);
+            comboBox1.BackColor = Color.FromArgb(83, 170, 158);
+            szabaszam.Region = Region.FromHrgn(roundszoba);
+
+            IntPtr roundstat = CreateRoundRectRgn(0, 0, statisztika.Width, statisztika.Height, 5, 5);
+            statisztika.BackColor = Color.FromArgb(128, Color.White);
+            statisztika.Region = Region.FromHrgn(roundstat);
+
+            IntPtr roundfeladat2 = CreateRoundRectRgn(0, 0, felasdat2cimke.Width, felasdat2cimke.Height, 5, 5);
+            felasdat2cimke.BackColor = Color.FromArgb(128, Color.White);
+            felasdat2cimke.Region = Region.FromHrgn(roundfeladat2);
+            feladat2.Font = new Font(feladat2.Font.FontFamily, 12f, FontStyle.Bold);
+            feladat2.ForeColor = Color.FromArgb(128, Color.White);
+
+            IntPtr roundfeladat3 = CreateRoundRectRgn(0, 0, feladat3cimke.Width, feladat3cimke.Height, 5, 5);
+            feladat3cimke.BackColor = Color.FromArgb(128, Color.White);
+            feladat3cimke.Region = Region.FromHrgn(roundfeladat3);
+            feladat3kis.Font = new Font(feladat2.Font.FontFamily, 11f);
+            feladat3.ForeColor = Color.FromArgb(128, Color.White);
+            feladat3kis.ForeColor = Color.FromArgb(128, Color.White);
+
+            IntPtr roundfeladat4 = CreateRoundRectRgn(0, 0, feladat4cimke.Width, feladat4cimke.Height, 5, 5);
+            feladat4cimke.BackColor = Color.FromArgb(128, Color.White);            
+            feladat4cimke.Region = Region.FromHrgn(roundfeladat4);
+            feladat4.Font = new Font(feladat2.Font.FontFamily, 11f);
+            feladat4b.Font = new Font(feladat2.Font.FontFamily, 11f);
+            feladat4.ForeColor = Color.FromArgb(128, Color.White);
+            feladat4b.ForeColor = Color.FromArgb(128, Color.White);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            #region 2.feladat
+            fileBeolvasasa();
+            int maxnapok = int.MinValue;
+            string maxnev = "";
+            for (int i = 0; i < length; i++)
+            {
+                if (maxnapok < adatok[i].eltoltnapok)
+                {
+                    maxnapok = adatok[i].eltoltnapok;
+                    maxnev = adatok[i].foglaltnev;
+                }
+            }
+            feladat2.Text = $"{maxnev} \n      ({Convert.ToString(maxnapok)} nap)";
+            #endregion
+
+            #region 3.feladat
+            //tavasz -> 1 - 121
+            //nyar -> 152 - 213
+            //osz - > 244 - 365
+
+            //tavasz - szoba/9000ft(x naponként)
+            //nyar - szoba/10000ft(x naponként)
+            //osz - szoba/8000ft(x naponként)
+
+            //potagy/2000ft(maximum egy,naponként)
+            //reggeli/1100ft(szemelyenként x naponként)
+            int tavasz = 9000;
+            int nyar = 10000;
+            int osz = 8000;
+            int potagy = 2000;
+            int reggeli = 1100;
+
+
+            List<int> penz = new List<int>();
+            StreamWriter ir = new StreamWriter(@"D:\app\szalodaFoglalo\Lists\Bevetel.txt");
+            for (int i = 0; i < length; i++)
+            {
+                if (adatok[i].erkzes < 152)
+                {
+                    int osszertek = adatok[i].eltoltnapok * tavasz;
+                    if (adatok[i].vendegek == 3)
+                    {
+                        osszertek += potagy * adatok[i].eltoltnapok;
+                    }
+                    if (adatok[i].reggeli == "1")
+                    {
+                        osszertek += adatok[i].eltoltnapok * adatok[i].vendegek * reggeli;
+
+                    }
+                    penz.Add(osszertek);
+                    ir.WriteLine(adatok[i].sorszam + ":" + osszertek);
+                }
+
+                if (adatok[i].erkzes < 244)
+                {
+                    int osszertek = adatok[i].eltoltnapok * nyar;
+                    if (adatok[i].vendegek == 3)
+                    {
+                        osszertek += potagy * adatok[i].eltoltnapok;
+                    }
+                    if (adatok[i].reggeli == "1")
+                    {
+                        osszertek += adatok[i].eltoltnapok * adatok[i].vendegek * reggeli;
+
+                    }
+                    penz.Add(osszertek);
+                    ir.WriteLine(adatok[i].sorszam + ":" + osszertek);
+                }
+
+                if (adatok[i].erkzes > 243)
+                {
+                    int osszertek = adatok[i].eltoltnapok * osz;
+                    if (adatok[i].vendegek == 3)
+                    {
+                        osszertek += potagy * adatok[i].eltoltnapok;
+                    }
+                    if (adatok[i].reggeli == "1")
+                    {
+                        osszertek += adatok[i].eltoltnapok * adatok[i].vendegek * reggeli;
+
+                    }
+                    penz.Add(osszertek);
+                    ir.WriteLine(adatok[i].sorszam + ":" + osszertek);
+                }
+            }
+            ir.Close();
+            int os = 0;
+            for (int i = 0; i < length; i++)
+            {
+                os += penz[i];
+            }
+            feladat3.Text = $"{os:00 000 000} Ft";
+            feladat3.Font = new Font(feladat2.Font.FontFamily, 14f, FontStyle.Bold);
+
+            feladat3kis.Text = "részletesebben a \n           'Bevetelek.txt'";
+            #endregion
+
+            #region 4.feladat
+
+            //1(január) -> 1-31
+            //2(február) -> 32-59
+            //3(márcuis) -> 60-90
+            //4(április) -> 91-120
+            //5(május) -> 121-151
+            //6(junius) -> 152-181
+            //7(julius) -> 182-212
+            //8(agusztus) -> 213-243
+            //9(szeptember) -> 244-273
+            //10(október) -> 274-304
+            //11(november) -> 305-334
+            //12(december) -> 335-365
+
+            #region honap valtozok
+            int jan = 0;
+            int feb = 0;
+            int mar = 0;
+            int apr = 0;
+            int maj = 0;
+            int jun = 0;
+            int jul = 0;
+            int aug = 0;
+            int sep = 0;
+            int okt = 0;
+            int nov = 0;
+            int dec = 0;
+            #endregion
+
+            for (int i = 0; i < length; i++)
+            {
+                #region 01 jan
+                //1(január) -> 1-31
+                //2(február) -> 32-59
+                if (adatok[i].erkzes >= 1 &&
+                    adatok[i].erkzes < 31 &&
+                    adatok[i].tavoz > 1 &&
+                    adatok[i].tavoz <= 31)
+                {
+                    jan += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 1 &&
+                    adatok[i].erkzes <= 31 &&
+                    adatok[i].tavoz > 1 &&
+                    adatok[i].tavoz <= 59)
+                {
+                    jan += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 31);
+                }
+                #endregion
+
+                #region 02 feb
+                //2(február) -> 32-59
+                //3(márcuis) -> 60-90
+                if (adatok[i].erkzes >= 32 &&
+                    adatok[i].erkzes < 59 &&
+                    adatok[i].tavoz > 32 &&
+                    adatok[i].tavoz <= 59)
+                {
+                    feb += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 32 &&
+                    adatok[i].erkzes <= 59 &&
+                    adatok[i].tavoz > 32 &&
+                    adatok[i].tavoz <= 90)
+                {
+
+                    feb += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 59);
+                }
+                #endregion
+
+                #region 03 mar
+                //3(márcuis) -> 60-90
+                //4(április) -> 91-120
+                if (adatok[i].erkzes >= 60 &&
+                    adatok[i].erkzes < 90 &&
+                    adatok[i].tavoz > 60 &&
+                    adatok[i].tavoz <= 90)
+                {
+                    mar += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 60 &&
+                    adatok[i].erkzes <= 90 &&
+                    adatok[i].tavoz > 60 &&
+                    adatok[i].tavoz <= 120)
+                {
+
+                    mar += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 90);
+                }
+                #endregion
+
+                #region 04 apr
+                //4(április) -> 91-120
+                //5(május) -> 121-151
+                if (adatok[i].erkzes >= 91 &&
+                    adatok[i].erkzes < 120 &&
+                    adatok[i].tavoz > 91 &&
+                    adatok[i].tavoz <= 120)
+                {
+                    apr += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 91 &&
+                    adatok[i].erkzes <= 120 &&
+                    adatok[i].tavoz > 91 &&
+                    adatok[i].tavoz <= 151)
+                {
+
+                    apr += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 120);
+                }
+                #endregion
+
+                #region 05 maj
+                //5(május) -> 121-151
+                //6(junius) -> 152-181
+                if (adatok[i].erkzes >= 121 &&
+                    adatok[i].erkzes < 151 &&
+                    adatok[i].tavoz > 121 &&
+                    adatok[i].tavoz <= 151)
+                {
+                    maj += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 121 &&
+                    adatok[i].erkzes <= 151 &&
+                    adatok[i].tavoz > 121 &&
+                    adatok[i].tavoz <= 181)
+                {
+
+                    maj += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 151);
+                }
+                #endregion
+
+                #region 06 jun
+                //6(junius) -> 152-181
+                //7(julius) -> 182-212
+                if (adatok[i].erkzes >= 152 &&
+                    adatok[i].erkzes < 181 &&
+                    adatok[i].tavoz > 152 &&
+                    adatok[i].tavoz <= 181)
+                {
+                    jun += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 152 &&
+                    adatok[i].erkzes <= 181 &&
+                    adatok[i].tavoz > 152 &&
+                    adatok[i].tavoz <= 212)
+                {
+
+                    jun += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 181);
+                }
+                #endregion
+
+                #region 07 jul
+                //7(julius) -> 182-212
+                //8(agusztus) -> 213-243
+                if (adatok[i].erkzes >= 182 &&
+                    adatok[i].erkzes < 212 &&
+                    adatok[i].tavoz > 182 &&
+                    adatok[i].tavoz <= 212)
+                {
+                    jul += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 182 &&
+                    adatok[i].erkzes <= 212 &&
+                    adatok[i].tavoz > 182 &&
+                    adatok[i].tavoz <= 243)
+                {
+
+                    jul += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 212);
+                }
+                #endregion
+
+                #region 08 aug
+                //8(agusztus) -> 213-243
+                //9(szeptember) -> 244-273
+                if (adatok[i].erkzes >= 213 &&
+                    adatok[i].erkzes < 243 &&
+                    adatok[i].tavoz > 213 &&
+                    adatok[i].tavoz <= 243)
+                {
+                    aug += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 213 &&
+                    adatok[i].erkzes <= 243 &&
+                    adatok[i].tavoz > 213 &&
+                    adatok[i].tavoz <= 273)
+                {
+
+                    aug += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 243);
+                }
+                #endregion
+
+                #region 09 sep
+                //9(szeptember) -> 244-273
+                //10(október) -> 274-304
+                if (adatok[i].erkzes >= 244 &&
+                    adatok[i].erkzes < 273 &&
+                    adatok[i].tavoz > 244 &&
+                    adatok[i].tavoz <= 273)
+                {
+                    sep += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 244 &&
+                    adatok[i].erkzes <= 273 &&
+                    adatok[i].tavoz > 244 &&
+                    adatok[i].tavoz <= 304)
+                {
+
+                    sep += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 273);
+                }
+                #endregion
+
+                #region 10 okt->rosz
+                //10(október) -> 274-304
+                //11(november) -> 305-334
+                if (adatok[i].erkzes >= 274 &&
+                    adatok[i].erkzes < 304 &&
+                    adatok[i].tavoz > 274 &&
+                    adatok[i].tavoz <= 304)
+                {
+                    okt += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 274 &&
+                    adatok[i].erkzes <= 304 &&
+                    adatok[i].tavoz > 274 &&
+                    adatok[i].tavoz <= 334)
+                {
+
+                    okt += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 304);
+                }
+                #endregion
+
+                #region 11 nov
+                //11(november) -> 305-334
+                //12(december) -> 335-365
+                if (adatok[i].erkzes >= 305 &&
+                    adatok[i].erkzes < 334 &&
+                    adatok[i].tavoz > 305 &&
+                    adatok[i].tavoz <= 334)
+                {
+                    nov += adatok[i].eltoltnapok;
+                }
+                if (adatok[i].erkzes >= 305 &&
+                    adatok[i].erkzes <= 334 &&
+                    adatok[i].tavoz > 305 &&
+                    adatok[i].tavoz <= 365)
+                {
+
+                    nov += adatok[i].eltoltnapok - Math.Abs(adatok[i].tavoz - 334);
+                }
+                #endregion
+
+                #region 12 dec
+                //12(december) -> 335-365
+                if (adatok[i].erkzes >= 335 &&
+                    adatok[i].erkzes < 365 &&
+                    adatok[i].tavoz > 335 &&
+                    adatok[i].tavoz <= 365)
+                {
+                    dec += adatok[i].eltoltnapok;
+                }
+                #endregion
+            }
+
+            feladat4.Text = $"Január      {jan}\n" +
+                            $"Február:    {feb}\n" +
+                            $"Március:    {mar}\n" +
+                            $"Április:    {apr}\n" +
+                            $"Május:      {maj}\n" +
+                            $"Junius:     {jun}\n";
+
+            feladat4b.Text = $"Julius:     {jul}\n" +
+                             $"Augusztus:  {aug}\n" +
+                             $"Szeptember: {sep}\n" +
+                             $"Október:    {Math.Abs(okt)}\n" +
+                             $"November:   {nov}\n" +
+                             $"December:   {dec}";
+            #endregion
+        }
+
+        
     }
 }
 
