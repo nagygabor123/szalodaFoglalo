@@ -1000,3 +1000,6 @@
 999 21 1 4 2 1 sdsdsad
 1000 9 1 2 2 1 uhuihiu
 1001 7 1 2 2 0 ijijo
+1002 20 9 11 3 1 uhu
+1003 20 30 33 3 1 ijojio
+1004 20 86 96 3 1 NagyGabor
