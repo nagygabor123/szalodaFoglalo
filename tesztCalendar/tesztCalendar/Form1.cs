@@ -687,6 +687,7 @@ namespace tesztCalendar
             letszam.Items.Add(1);
             letszam.Items.Add(2);
             letszam.Items.Add(3);
+            letszam.BackColor = Color.FromArgb(248, 63, 118);
             popupForm.Controls.Add(letszam);
 
             RadioButton radioBtnZero = new RadioButton();
@@ -744,15 +745,19 @@ namespace tesztCalendar
                 ir.Close();
                 MessageBox.Show("Sikeres foglalás !");
 
+                #region szallasPriceLabel
                 int szallaara = szallasara(erkez,tav,valasztottFo,reggeli);
                 System.Windows.Forms.Label foglalasPrice = new System.Windows.Forms.Label();
-                foglalasPrice.Size = new Size(200, 30);
-                foglalasPrice.Text = $"Szállás ára: {szallaara} Ft";
-                foglalasPrice.Location = new Point(20, 200);
-                foglalasPrice.BackColor = Color.White;
-                foglalasPrice.TextAlign = ContentAlignment.MiddleCenter;
-                foglalasPrice.Font = new Font(foglalasPrice.Font.FontFamily,12f, FontStyle.Bold);
+                foglalasPrice.Size = new Size(208, 70);
+                foglalasPrice.Text = $"Szállás ára:\n          {szallaara} Ft";
+                foglalasPrice.Location = new Point(12, 340);
+                IntPtr roundfoglalasPrice = CreateRoundRectRgn(0, 0, foglalasPrice.Width, foglalasPrice.Height, 5, 5);
+                foglalasPrice.Region = Region.FromHrgn(roundfoglalasPrice);
+                foglalasPrice.BackColor = Color.FromArgb(128, Color.White);
+                foglalasPrice.ForeColor = Color.FromArgb(37, 35, 78);
+                foglalasPrice.Font = new Font("Microsoft YaHei", 18);
                 this.Controls.Add(foglalasPrice);
+                #endregion
             }
         }
 
@@ -1418,9 +1423,5 @@ namespace tesztCalendar
                              $"December:   {dec}";
             #endregion
         }
-
-        
     }
 }
-
-
