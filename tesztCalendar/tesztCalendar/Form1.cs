@@ -49,7 +49,7 @@ namespace tesztCalendar
 
         string vszobaszam = "1";
         int utolsoElem = 0;
-        string fajlutvonal = @"D:\app\szalodaFoglalo\Lists\pitypang.txt";
+        string fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt";
         string evjarat = "pitypang";
 
         public Form1()
@@ -81,7 +81,7 @@ namespace tesztCalendar
         private void ujevek(object sender, EventArgs e)
         {
             evjarat = comboBox2.SelectedItem.ToString();
-            fajlutvonal = @"\app\szalodaFoglalo\Lists\" + evjarat + ".txt";
+            fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\" + evjarat + ".txt";
 
             if (File.Exists(fajlutvonal))
             {
@@ -100,7 +100,7 @@ namespace tesztCalendar
                 ujEvek.Top = 400;
                 ujEvek.ControlBox = false;
                 ujEvek.FormBorderStyle = FormBorderStyle.FixedDialog;
-                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\3.png");
 
 
                 System.Windows.Forms.Label szoveg = new System.Windows.Forms.Label();
@@ -617,7 +617,7 @@ namespace tesztCalendar
             popupForm.Size = new Size(400, 250);
             popupForm.ControlBox = false;
             popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\3.png");
 
             System.Windows.Forms.Label erkezes = new System.Windows.Forms.Label();
             erkezes.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
@@ -656,14 +656,14 @@ namespace tesztCalendar
 
             RadioButton radioBtnZero = new RadioButton();
             radioBtnZero.Size = new Size(150, 30);
-            radioBtnZero.Text = "Kérek reggelit";
+            radioBtnZero.Text = "Nem kérek reggelit";
             radioBtnZero.Location = new Point(20, 110);
             radioBtnZero.BackColor = Color.Transparent;
             popupForm.Controls.Add(radioBtnZero);
 
             RadioButton radioBtnOne = new RadioButton();
             radioBtnOne.Size = new Size(150, 30);
-            radioBtnOne.Text = "Nem kérek reggelit";
+            radioBtnOne.Text = "Kérek reggelit";
             radioBtnOne.Location = new Point(20, 140);
             radioBtnOne.BackColor = Color.Transparent;
             popupForm.Controls.Add(radioBtnOne);
@@ -699,7 +699,7 @@ namespace tesztCalendar
                 {
                     reggeli = "0";
                 }
-                else if (radioBtnOne.Checked)
+                if (radioBtnOne.Checked)
                 {
                     reggeli = "1";
                 }
@@ -731,9 +731,6 @@ namespace tesztCalendar
 
             for (int i = 0; i < length; i++)
             {
-                //tavasz -> 1 - 151
-                //nyar -> 152 - 243
-                //osz - > 244 - 365
                 #region tavasz
                 if (erkez > 0 && erkez < 152 && tavasz > 0 && tavoz<152)
                 {
