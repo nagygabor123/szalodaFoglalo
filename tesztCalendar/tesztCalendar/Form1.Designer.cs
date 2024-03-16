@@ -51,16 +51,16 @@
             this.button1 = new System.Windows.Forms.Button();
             this.statisztika = new System.Windows.Forms.Label();
             this.valasztopanel = new System.Windows.Forms.Panel();
-            this.szobapanel = new System.Windows.Forms.Panel();
             this.evekpanel = new System.Windows.Forms.Panel();
+            this.szobapanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.valasztopanel.SuspendLayout();
-            this.szobapanel.SuspendLayout();
             this.evekpanel.SuspendLayout();
+            this.szobapanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -106,9 +106,9 @@
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(78)))));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(64, 54);
+            this.comboBox1.Location = new System.Drawing.Point(55, 51);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(54, 28);
+            this.comboBox1.Size = new System.Drawing.Size(64, 28);
             this.comboBox1.TabIndex = 2;
             // 
             // evek
@@ -129,9 +129,9 @@
             this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(78)))));
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(41, 48);
+            this.comboBox2.Location = new System.Drawing.Point(31, 48);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(54, 28);
+            this.comboBox2.Size = new System.Drawing.Size(64, 28);
             this.comboBox2.TabIndex = 4;
             // 
             // panel1
@@ -293,15 +293,6 @@
             this.valasztopanel.Size = new System.Drawing.Size(208, 267);
             this.valasztopanel.TabIndex = 6;
             // 
-            // szobapanel
-            // 
-            this.szobapanel.Controls.Add(this.szabaszam);
-            this.szobapanel.Controls.Add(this.comboBox1);
-            this.szobapanel.Location = new System.Drawing.Point(53, 154);
-            this.szobapanel.Name = "szobapanel";
-            this.szobapanel.Size = new System.Drawing.Size(135, 92);
-            this.szobapanel.TabIndex = 6;
-            // 
             // evekpanel
             // 
             this.evekpanel.Controls.Add(this.evek);
@@ -310,6 +301,15 @@
             this.evekpanel.Name = "evekpanel";
             this.evekpanel.Size = new System.Drawing.Size(112, 88);
             this.evekpanel.TabIndex = 7;
+            // 
+            // szobapanel
+            // 
+            this.szobapanel.Controls.Add(this.szabaszam);
+            this.szobapanel.Controls.Add(this.comboBox1);
+            this.szobapanel.Location = new System.Drawing.Point(53, 154);
+            this.szobapanel.Name = "szobapanel";
+            this.szobapanel.Size = new System.Drawing.Size(135, 92);
+            this.szobapanel.TabIndex = 6;
             // 
             // Form1
             // 
@@ -334,10 +334,10 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.valasztopanel.ResumeLayout(false);
-            this.szobapanel.ResumeLayout(false);
-            this.szobapanel.PerformLayout();
             this.evekpanel.ResumeLayout(false);
             this.evekpanel.PerformLayout();
+            this.szobapanel.ResumeLayout(false);
+            this.szobapanel.PerformLayout();
             this.ResumeLayout(false);
 
         }

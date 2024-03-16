@@ -3,3 +3,4 @@
 2 2 3 9 3 1 sdgdsfgdssdg
 3 3 12 12 3 1 jiio
 3 3 12 63 2 1 l
+4 2 10 31 2 1 NagyGábor
