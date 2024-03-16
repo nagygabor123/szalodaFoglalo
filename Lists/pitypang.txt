@@ -1003,3 +1003,6 @@
 1002 20 9 11 3 1 uhu
 1003 20 30 33 3 1 ijojio
 1004 20 86 96 3 1 NagyGabor
+1005 8 365 366 3 1 ijkiojio
+1006 24 9 31 3 1 ihuhiuhu
+1007 24 123 151 3 1 nininio
