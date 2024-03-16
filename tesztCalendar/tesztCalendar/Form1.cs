@@ -633,8 +633,6 @@ namespace tesztCalendar
             }
             else
             {
-                startdate.Style.BackColor = Color.White;
-                enddate.Style.BackColor = Color.White;
                 startdate = null;
                 enddate = null;
                 cell_click(sender, kivalasztott);
@@ -655,12 +653,14 @@ namespace tesztCalendar
             popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
 
             System.Windows.Forms.Label erkezes = new System.Windows.Forms.Label();
-            erkezes.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
+            erkezes.Size = new Size(150, 30);
+            erkezes.Text = "Érkezés: "+ startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
             erkezes.Location = new Point(20, 20);
             erkezes.BackColor = Color.Transparent;
             popupForm.Controls.Add(erkezes);
 
             System.Windows.Forms.Label tavozas = new System.Windows.Forms.Label();
+            tavozas.Size = new Size(150, 30);
             tavozas.Text = "Távozás: " + enddate.OwningRow.Cells[0].Value.ToString() + "." + enddate.Value.ToString();
             tavozas.Location = new Point(20, 50);
             tavozas.BackColor = Color.Transparent;
@@ -674,16 +674,16 @@ namespace tesztCalendar
 
             System.Windows.Forms.Label foglaloneve = new System.Windows.Forms.Label();
             foglaloneve.Text = "Név:";
-            foglaloneve.Location = new Point(150, 20);
+            foglaloneve.Location = new Point(170, 20);
             foglaloneve.BackColor = Color.Transparent;
             popupForm.Controls.Add(foglaloneve);
 
             System.Windows.Forms.TextBox foglaloneveBox = new System.Windows.Forms.TextBox();
-            foglaloneveBox.Location = new Point(155, 45);
+            foglaloneveBox.Location = new Point(175, 45);
             popupForm.Controls.Add(foglaloneveBox);
 
             System.Windows.Forms.ComboBox letszam = new System.Windows.Forms.ComboBox();
-            letszam.Location = new Point(155, 80);
+            letszam.Location = new Point(175, 80);
             letszam.Items.Add(1);
             letszam.Items.Add(2);
             letszam.Items.Add(3);
@@ -726,11 +726,10 @@ namespace tesztCalendar
             if (popupForm.ShowDialog() == DialogResult.OK)
             {
                 string reggeli = "";
-                int erkez = erkezhonapboszam(); ;
-                int tav = tavozhonapboszam();
                 int valasztottFo = Convert.ToInt32(letszam.SelectedItem);
                 string nev = foglaloneveBox.Text;
-
+                int erkez = erkezhonapboszam();
+                int tav = tavozhonapboszam();
                 if (radioBtnZero.Checked)
                 {
                     reggeli = "0";
