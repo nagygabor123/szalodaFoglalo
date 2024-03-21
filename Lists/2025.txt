@@ -1,7 +1,2 @@
-0 1 1 4 2 1 kispéter
-1 2 2 8 3 0 Nagy_Ádám
-2 27 1 6 2 0 NagyGábor
-3 26 9 9 3 1 kispéter
-4 2 96 96 3 0 gdrgdrgdrgd
-5 1 8 31 2 1 jijij
-6 1 5 7 1 1 ijij
+0 4 2 12 3 1 kjdsfiusdf
+1 4 15 22 1 0 grfgf

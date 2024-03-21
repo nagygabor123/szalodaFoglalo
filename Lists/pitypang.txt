@@ -982,3 +982,6 @@
 982 8 349 361 2 0 Molnar_Laszlo
 983 9 350 353 2 1 Illes_Nicoletta
 984 17 350 362 2 0 Kovacs_Ibolya
+985 12 92 99 3 1 dfdsfdsf
+986 24 1 16 3 1 fdsfdsfsdf
+987 25 1 6 3 0 snxsahdusahc

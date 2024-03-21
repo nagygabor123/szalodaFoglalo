@@ -19,3 +19,4 @@ C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.CoreCompileInputs.cache
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.exe
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.pdb
+C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\3.png

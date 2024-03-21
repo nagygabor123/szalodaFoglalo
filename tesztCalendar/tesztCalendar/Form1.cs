@@ -48,8 +48,8 @@ namespace tesztCalendar
         #endregion
 
         string vszobaszam = "1";
-        int utolsoElem = 0;
-        string fajlutvonal = @"D:\app\szalodaFoglalo\Lists\pitypang.txt";// C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo
+        int utolsoElem = 0;//D:\app\szalodaFoglalo\Lists\pitypang.txt
+        string fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt";
         string evjarat = "pitypang";
 
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -108,7 +108,7 @@ namespace tesztCalendar
         private void ujevek(object sender, EventArgs e)
         {   
             evjarat = comboBox2.SelectedItem.ToString();
-            fajlutvonal = @"D:\app\szalodaFoglalo\Lists\" + evjarat + ".txt";
+            fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\" + evjarat + ".txt";
             
             if (File.Exists(fajlutvonal))
             {
@@ -127,7 +127,7 @@ namespace tesztCalendar
                 ujEvek.Top = 400;
                 ujEvek.ControlBox = false;
                 ujEvek.FormBorderStyle = FormBorderStyle.FixedDialog;
-                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+                ujEvek.BackgroundImage = System.Drawing.Image.FromFile("3.png");
 
 
                 System.Windows.Forms.Label szoveg = new System.Windows.Forms.Label();
@@ -153,6 +153,7 @@ namespace tesztCalendar
                 if (ujEvek.ShowDialog() == DialogResult.OK)
                 {
                     FileStream fs = File.Create(fajlutvonal);
+                    fs.Close();
                     MessageBox.Show($"A {evjarat} évet ezennel megnyitottuk!", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     cellaszinvissza();
                     urescella();
@@ -652,7 +653,7 @@ namespace tesztCalendar
             popupForm.Size = new Size(400, 250);
             popupForm.ControlBox = false;
             popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+            popupForm.BackgroundImage = System.Drawing.Image.FromFile("3.png");
 
             System.Windows.Forms.Label erkezes = new System.Windows.Forms.Label();
             erkezes.Size = new Size(150, 30);
@@ -1083,7 +1084,7 @@ namespace tesztCalendar
                 int reggeli = 1100;
 
                 List<int> penz = new List<int>();
-                StreamWriter ir = new StreamWriter(@"D:\app\szalodaFoglalo\Lists\Bevetel_"+evjarat+".txt");
+                StreamWriter ir = new StreamWriter(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\Bevetel_" + evjarat+".txt");
                 for (int i = 0; i < length; i++)
                 {
                     #region Tavasz
