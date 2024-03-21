@@ -49,7 +49,7 @@ namespace tesztCalendar
 
         string vszobaszam = "1";
         int utolsoElem = 0;
-        string fajlutvonal = @"D:\app\szalodaFoglalo\Lists\pitypang.txt";// C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo
+        string fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt";// C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo
         string evjarat = "pitypang";
 
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -107,7 +107,7 @@ namespace tesztCalendar
         private void ujevek(object sender, EventArgs e)
         {
             evjarat = comboBox2.SelectedItem.ToString();
-            fajlutvonal = @"D:\app\szalodaFoglalo\Lists\" + evjarat + ".txt";
+            fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\" + evjarat + ".txt";
 
             if (File.Exists(fajlutvonal))
             {
@@ -126,7 +126,7 @@ namespace tesztCalendar
                 ujEvek.Top = 400;
                 ujEvek.ControlBox = false;
                 ujEvek.FormBorderStyle = FormBorderStyle.FixedDialog;
-                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+                ujEvek.BackgroundImage = System.Drawing.Image.FromFile(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\3.png");
 
 
                 System.Windows.Forms.Label szoveg = new System.Windows.Forms.Label();
@@ -652,15 +652,17 @@ namespace tesztCalendar
             popupForm.Size = new Size(400, 250);
             popupForm.ControlBox = false;
             popupForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"D:\app\szalodaFoglalo\3.png");
+            popupForm.BackgroundImage = System.Drawing.Image.FromFile(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\3.png");
 
             System.Windows.Forms.Label erkezes = new System.Windows.Forms.Label();
+            erkezes.Size = new Size(150, 30);
             erkezes.Text = "Érkezés: " + startdate.OwningRow.Cells[0].Value.ToString() + "." + startdate.Value.ToString();
             erkezes.Location = new Point(20, 20);
             erkezes.BackColor = Color.Transparent;
             popupForm.Controls.Add(erkezes);
 
             System.Windows.Forms.Label tavozas = new System.Windows.Forms.Label();
+            tavozas.Size = new Size(150, 30);
             tavozas.Text = "Távozás: " + enddate.OwningRow.Cells[0].Value.ToString() + "." + enddate.Value.ToString();
             tavozas.Location = new Point(20, 50);
             tavozas.BackColor = Color.Transparent;
@@ -674,16 +676,16 @@ namespace tesztCalendar
 
             System.Windows.Forms.Label foglaloneve = new System.Windows.Forms.Label();
             foglaloneve.Text = "Név:";
-            foglaloneve.Location = new Point(150, 20);
+            foglaloneve.Location = new Point(170, 20);
             foglaloneve.BackColor = Color.Transparent;
             popupForm.Controls.Add(foglaloneve);
 
             System.Windows.Forms.TextBox foglaloneveBox = new System.Windows.Forms.TextBox();
-            foglaloneveBox.Location = new Point(155, 45);
+            foglaloneveBox.Location = new Point(175, 45);
             popupForm.Controls.Add(foglaloneveBox);
 
             System.Windows.Forms.ComboBox letszam = new System.Windows.Forms.ComboBox();
-            letszam.Location = new Point(155, 80);
+            letszam.Location = new Point(175, 80);
             letszam.Items.Add(1);
             letszam.Items.Add(2);
             letszam.Items.Add(3);
@@ -748,7 +750,7 @@ namespace tesztCalendar
                 System.Windows.Forms.Label foglalasPrice = new System.Windows.Forms.Label();
                 foglalasPrice.Size = new Size(200, 30);
                 foglalasPrice.Text = $"Szállás ára: {szallaara} Ft";
-                foglalasPrice.Location = new Point(20, 200);
+                foglalasPrice.Location = new Point(20, 400);
                 foglalasPrice.BackColor = Color.White;
                 foglalasPrice.TextAlign = ContentAlignment.MiddleCenter;
                 foglalasPrice.Font = new Font(foglalasPrice.Font.FontFamily,12f, FontStyle.Bold);
@@ -1077,7 +1079,7 @@ namespace tesztCalendar
 
 
             List<int> penz = new List<int>();
-            StreamWriter ir = new StreamWriter(@"D:\app\szalodaFoglalo\Lists\Bevetel.txt");
+            StreamWriter ir = new StreamWriter(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\Bevetel.txt");
             for (int i = 0; i < length; i++)
             {
                 if (adatok[i].erkzes < 152)

@@ -12,7 +12,6 @@ C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\tesztCalendar.exe
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\tesztCalendar.pdb
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.AssemblyReference.cache
-C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.SuggestedBindingRedirects.cache
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.Form1.resources
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.Properties.Resources.resources
 C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.GenerateResource.cache

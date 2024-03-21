@@ -995,3 +995,7 @@
 994 22 92 103 3 1 hfhfttfh
 995 22 61 66 2 0 gcfgcfg
 996 16 2 3 2 1 xaxax
+997 19 1 6 2 1 jcbhdbgvzhdv
+998 10 219 223 2 0 fusdhufhsdufhsd
+999 17 1 5 3 1 rgrgr
+1000 18 2 2 2 0 hgshugdzhs
