@@ -49,7 +49,7 @@ namespace tesztCalendar
 
         string vszobaszam = "1";
         int utolsoElem = 0;//D:\app\szalodaFoglalo\Lists\pitypang.txt
-        string fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt";
+        string fajlutvonal = @"C:\Users\DeliBence\Downloads\szalodaFoglalo\Lists\pitypang.txt";
         string evjarat = "pitypang";
 
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -108,13 +108,20 @@ namespace tesztCalendar
         private void ujevek(object sender, EventArgs e)
         {   
             evjarat = comboBox2.SelectedItem.ToString();
-            fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\" + evjarat + ".txt";
+            fajlutvonal = @"C:\Users\DeliBence\Downloads\szalodaFoglalo\Lists\" + evjarat + ".txt";
             
+            enddate = null;
+            startdate = null;
+            startRow = 0;
+            startCol = 0;
+            endRow = 0;
+            endCol = 0;
             if (File.Exists(fajlutvonal))
             {
                 MessageBox.Show($"A {evjarat} évi foglalások megnyitása!", "Információ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 cellaszinvissza();
                 urescella();
+                
             }
             else
             {
@@ -612,22 +619,59 @@ namespace tesztCalendar
         }
 
         private DataGridViewCell startdate = null;
+        private int startRow, startCol;
         private DataGridViewCell enddate = null;
-        private void cell_click(object sender, DataGridViewCellEventArgs kivalasztott)
-        {
+        private int endRow, endCol;
+        private void cell_click(object sender, DataGridViewCellEventArgs kivalasztott) {
+            if (startdate == dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex]) return;
+            
+            
             if (dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex].Style.BackColor != Color.FromArgb(245, 97, 105) &&
-                dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex].Style.BackColor != Color.FromArgb(188, 223, 227))
+                dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex].Style.BackColor != Color.FromArgb(188, 223, 227)
+                )
             {
                 if (startdate == null)
                 {
                     startdate = dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex];
+                    startRow = kivalasztott.RowIndex;
+                    startCol = kivalasztott.ColumnIndex;
                     startdate.Style.BackColor = Color.Yellow;
                 }
                 else if (enddate == null)
                 {
                     enddate = dataGridView1.Rows[kivalasztott.RowIndex].Cells[kivalasztott.ColumnIndex];
+                    endRow = kivalasztott.RowIndex;
+                    endCol = kivalasztott.ColumnIndex;
                     enddate.Style.BackColor = Color.Yellow;
+                    if (endCol < startCol || endRow < startRow) {
+                        int tempRow, tempCol;
+                        DataGridViewCell temp = null; 
+                        temp = enddate;
+                        tempRow = endRow;
+                        tempCol = endCol;
+                        enddate = startdate;
+                        endRow = startRow;
+                        endCol = startCol;
+                        startdate = temp;
+                        startRow = tempRow;
+                        startCol = tempCol;
+                    }
+                    for (int i = startRow; i <= endRow; i++) {
+                        for (int j = startCol; j <= endCol; j++) {
+                            var bol = dataGridView1.Rows[i].Cells[j].Style.BackColor == Color.FromArgb(245, 97, 105) ||
+                                      dataGridView1.Rows[i].Cells[j].Style.BackColor == Color.FromArgb(188, 223, 227);
+                            if (bol) {
+                                MessageBox.Show("Valamelyik dátum már foglalt!\n             Kérem válasszon másikat!");
+                                startdate = null;
+                                enddate = null;
+                                return;
+                            }
+                        }
+                    }
+                    
                     Felugroablak();
+                    startdate = null;
+                    enddate = null;
                 }
                 else
                 {
@@ -726,7 +770,9 @@ namespace tesztCalendar
             radioBtnOne.CheckedChanged += (sender, e) => ellenorzes(foglaloneveBox, letszam, radioBtnZero, radioBtnOne, foglalGomb);
             #endregion
 
-            if (popupForm.ShowDialog() == DialogResult.OK)
+            var dialog = popupForm.ShowDialog();
+            
+            if (dialog == DialogResult.OK)
             {
                 string reggeli = "";
                 int valasztottFo = Convert.ToInt32(letszam.SelectedItem);
@@ -746,11 +792,19 @@ namespace tesztCalendar
                 ir.Write($"{utolsoElem} {vszobaszam} {erkez} {tav} {valasztottFo} {reggeli} {nev}\n");
                 ir.Close();
                 MessageBox.Show("Sikeres foglalás !");
+                length++;
+
+                comboBox1_DropDownClosed(null, null);
+                
+                // cellaszinvissza();
+                // urescella();
 
                 #region szallasPriceLabel
                 int szallaara = szallasara(erkez,tav,valasztottFo,reggeli);
+                Controls.RemoveByKey("foglalasPrice");
                 System.Windows.Forms.Label foglalasPrice = new System.Windows.Forms.Label();
                 foglalasPrice.Size = new Size(208, 70);
+                foglalasPrice.Name = "foglalasPrice";
                 foglalasPrice.Text = $"Szállás ára:\n          {szallaara} Ft";
                 foglalasPrice.Location = new Point(12, 340);
                 IntPtr roundfoglalasPrice = CreateRoundRectRgn(0, 0, foglalasPrice.Width, foglalasPrice.Height, 5, 5);
@@ -760,6 +814,14 @@ namespace tesztCalendar
                 foglalasPrice.Font = new Font("Microsoft YaHei", 18);
                 this.Controls.Add(foglalasPrice);
                 #endregion
+            }
+            else {
+                enddate = null;
+                startdate = null;
+                startRow = 0;
+                startCol = 0;
+                endRow = 0;
+                endCol = 0;
             }
         }
 
@@ -771,7 +833,7 @@ namespace tesztCalendar
             int osz = 8000;
             int potagy = 2000;
             int reggeli = 1100;
-            int eltelnap = tavoz-erkez;    
+            int eltelnap = Math.Abs(tavoz - erkez);    
 
             for (int i = 0; i < length; i++)
             {
@@ -872,48 +934,50 @@ namespace tesztCalendar
             }
             if (honap == "Február")
             {
-                return nap + 32;
+                return nap + 31;
             }
             if (honap == "Március")
             {
-                return nap + 60;
+                return nap + 59;
             }
             if (honap == "Április")
             {
-                return nap + 91;
+                return nap + 90;
             }
             if (honap == "Május")
             {
-                return nap + 121;
+                return nap + 120;
             }
-            if (honap == "Junius")
+            if (honap == "Június")
             {
-                return nap + 152;
+                return nap + 151;
             }
             if (honap == "Július")
             {
-                return nap + 182;
+                return nap + 181;
             }
             if (honap == "Augusztus")
             {
-                return nap + 213;
+                return nap + 212;
             }
             if (honap == "Szeptember")
             {
-                return nap + 244;
+                return nap + 243;
             }
             if (honap == "Október")
             {
-                return nap + 274;
+                return nap + 273;
             }
             if (honap == "November")
             {
-                return nap + 305;
+                return nap + 304;
             }
             if (honap == "December")
             {
-                return nap + 335;
+                return nap + 334;
             }
+            throw new Exception("DEAD");
+
             #endregion
             return nap;   
         }
@@ -929,48 +993,49 @@ namespace tesztCalendar
             }
             if (honap == "Február")
             {
-                return nap + 32;
+                return nap + 31;
             }
             if (honap == "Március")
             {
-                return nap + 60;
+                return nap + 59;
             }
             if (honap == "Április")
             {
-                return nap + 91;
+                return nap + 90;
             }
             if (honap == "Május")
             {
-                return nap + 121;
+                return nap + 120;
             }
-            if (honap == "Junius")
+            if (honap == "Június")
             {
-                return nap + 152;
+                return nap + 151;
             }
             if (honap == "Július")
             {
-                return nap + 182;
+                return nap + 181;
             }
             if (honap == "Augusztus")
             {
-                return nap + 213;
+                return nap + 212;
             }
             if (honap == "Szeptember")
             {
-                return nap + 244;
+                return nap + 243;
             }
             if (honap == "Október")
             {
-                return nap + 274;
+                return nap + 273;
             }
             if (honap == "November")
             {
-                return nap + 305;
+                return nap + 304;
             }
             if (honap == "December")
             {
-                return nap + 335;
+                return nap + 334;
             }
+            throw new Exception("DEAD");
             #endregion
             return nap;
         }
@@ -1084,7 +1149,7 @@ namespace tesztCalendar
                 int reggeli = 1100;
 
                 List<int> penz = new List<int>();
-                StreamWriter ir = new StreamWriter(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\Bevetel_" + evjarat+".txt");
+                StreamWriter ir = new StreamWriter(@"C:\Users\DeliBence\Downloads\szalodaFoglalo\Lists\Bevetel_" + evjarat+".txt");
                 for (int i = 0; i < length; i++)
                 {
                     #region Tavasz
