@@ -981,9 +981,5 @@
 981 7 349 363 1 1 Csabai_Klara
 982 8 349 361 2 0 Molnar_Laszlo
 983 9 350 353 2 1 Illes_Nicoletta
-984 17 350 362 2 0 Kovacs_Ibolya
-985 12 92 99 3 1 dfdsfdsf
-986 24 1 16 3 1 fdsfdsfsdf
-987 25 1 6 3 0 snxsahdusahc
-988 1 353 356 2 1 ycf
-988 1 249 250 1 1 asd
+984 17 350 362 2 0 Kovacs_Ibolya985 20 356 365 2 0 sxccdc
+985 25 342 344 3 0 gfgfdgdfg

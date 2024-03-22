@@ -49,7 +49,7 @@ namespace tesztCalendar
 
         string vszobaszam = "1";
         int utolsoElem = 0;//D:\app\szalodaFoglalo\Lists\pitypang.txt
-        string fajlutvonal = @"C:\Users\DeliBence\Downloads\szalodaFoglalo\Lists\pitypang.txt";
+        string fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt";
         string evjarat = "pitypang";
 
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -108,7 +108,7 @@ namespace tesztCalendar
         private void ujevek(object sender, EventArgs e)
         {   
             evjarat = comboBox2.SelectedItem.ToString();
-            fajlutvonal = @"C:\Users\DeliBence\Downloads\szalodaFoglalo\Lists\" + evjarat + ".txt";
+            fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\" + evjarat + ".txt";
             
             enddate = null;
             startdate = null;
@@ -775,6 +775,7 @@ namespace tesztCalendar
             if (dialog == DialogResult.OK)
             {
                 string reggeli = "";
+                string reg = "";
                 int valasztottFo = Convert.ToInt32(letszam.SelectedItem);
                 string nev = foglaloneveBox.Text;
                 int erkez = erkezhonapboszam();
@@ -782,10 +783,12 @@ namespace tesztCalendar
                 if (radioBtnZero.Checked)
                 {
                     reggeli = "0";
+                    reg = "kérek";
                 }
                 if (radioBtnOne.Checked)
                 {
                     reggeli = "1";
+                    reg = "Nem kérek";
                 }
 
                 StreamWriter ir = File.AppendText(fajlutvonal);
@@ -794,19 +797,16 @@ namespace tesztCalendar
                 MessageBox.Show("Sikeres foglalás !");
                 length++;
 
-                comboBox1_DropDownClosed(null, null);
-                
-                // cellaszinvissza();
-                // urescella();
+                comboBox1_DropDownClosed(null, null);   
 
                 #region szallasPriceLabel
                 int szallaara = szallasara(erkez,tav,valasztottFo,reggeli);
                 Controls.RemoveByKey("foglalasPrice");
                 System.Windows.Forms.Label foglalasPrice = new System.Windows.Forms.Label();
-                foglalasPrice.Size = new Size(208, 70);
+                foglalasPrice.Size = new Size(208, 258);
                 foglalasPrice.Name = "foglalasPrice";
-                foglalasPrice.Text = $"Szállás ára:\n          {szallaara} Ft";
-                foglalasPrice.Location = new Point(12, 340);
+                foglalasPrice.Text = $"Szállás ára:\n          {szallaara} Ft \n\nSzobaszám: {vszobaszam}\nÉrk.: {startdate.OwningRow.Cells[0].Value.ToString()}.{startdate.Value.ToString()}\nTáv.: {enddate.OwningRow.Cells[0].Value.ToString()}.{enddate.Value.ToString()}\nReggelit: {reg}\nLétszám: {valasztottFo}";
+                foglalasPrice.Location = new Point(12, 313);
                 IntPtr roundfoglalasPrice = CreateRoundRectRgn(0, 0, foglalasPrice.Width, foglalasPrice.Height, 5, 5);
                 foglalasPrice.Region = Region.FromHrgn(roundfoglalasPrice);
                 foglalasPrice.BackColor = Color.FromArgb(128, Color.White);
@@ -869,7 +869,7 @@ namespace tesztCalendar
                 }
                 #endregion
                 #region nyar
-                if (erkez > 151 && erkez < 244 && tavoz < 151 && tavoz < 244)
+                if (erkez > 151 && erkez < 244 && tavoz > 151 && tavoz < 244)
                 {
                     osszeg = eltelnap * nyar;
                     if (valasztottFo == 3)
@@ -881,7 +881,7 @@ namespace tesztCalendar
                         osszeg += eltelnap * valasztottFo * reggeli;
                     }
                 }
-                if (erkez > 151 && erkez < 244 && tavoz < 243 && tavoz < 365)
+                if (erkez > 151 && erkez < 244 && tavoz > 243 && tavoz < 365)
                 {
                     int ujhonap = eltelnap - (tavoz - 244);
                     int ehonap = eltelnap - ujhonap;
@@ -900,7 +900,7 @@ namespace tesztCalendar
                 }
                 #endregion
                 #region osz
-                if (erkez > 243 && erkez < 365 && tavoz < 243 && tavoz < 365)
+                if (erkez > 243 && erkez < 365 && tavoz > 243)
                 {
                     osszeg = eltelnap * osz;
                     if (valasztottFo == 3)
@@ -1149,7 +1149,7 @@ namespace tesztCalendar
                 int reggeli = 1100;
 
                 List<int> penz = new List<int>();
-                StreamWriter ir = new StreamWriter(@"C:\Users\DeliBence\Downloads\szalodaFoglalo\Lists\Bevetel_" + evjarat+".txt");
+                StreamWriter ir = new StreamWriter(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\Bevetel_" + evjarat+".txt");
                 for (int i = 0; i < length; i++)
                 {
                     #region Tavasz
