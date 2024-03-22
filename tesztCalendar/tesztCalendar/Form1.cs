@@ -58,6 +58,8 @@ namespace tesztCalendar
         public Form1()
         {
             this.StartPosition = FormStartPosition.Manual;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;   
+            this.MaximizeBox = false;
             this.Left = 240;
             this.Top = 200;
             InitializeComponent();
@@ -69,6 +71,7 @@ namespace tesztCalendar
             {
                 comboBox1.Items.Add(i);
             }
+            comboBox1.DropDownHeight = 200;
             comboBox2.Items.Add("pitypang");
             comboBox2.Items.Add("2024");
             comboBox2.Items.Add("2025");
