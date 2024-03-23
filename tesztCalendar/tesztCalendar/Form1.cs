@@ -48,8 +48,8 @@ namespace tesztCalendar
         #endregion
 
         string vszobaszam = "1";
-        int utolsoElem = 0;//D:\app\szalodaFoglalo\Lists\pitypang.txt
-        string fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt";
+        int utolsoElem = 0;//D:\app\szalodaFoglalo\Lists\pitypang.txt C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\pitypang.txt
+        string fajlutvonal = @"D:\app\szalodaFoglalo\Lists\pitypang.txt";
         string evjarat = "pitypang";
 
         [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
@@ -111,7 +111,7 @@ namespace tesztCalendar
         private void ujevek(object sender, EventArgs e)
         {   
             evjarat = comboBox2.SelectedItem.ToString();
-            fajlutvonal = @"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\" + evjarat + ".txt";
+            fajlutvonal = @"D:\app\szalodaFoglalo\Lists\" + evjarat + ".txt";
             
             enddate = null;
             startdate = null;
@@ -1152,7 +1152,7 @@ namespace tesztCalendar
                 int reggeli = 1100;
 
                 List<int> penz = new List<int>();
-                StreamWriter ir = new StreamWriter(@"C:\Users\NagyGabor1\Documents\GitHub\szalodaFoglalo\Lists\Bevetel_" + evjarat+".txt");
+                StreamWriter ir = new StreamWriter(@"D:\app\szalodaFoglalo\Lists\Bevetel_" + evjarat+".txt");
                 for (int i = 0; i < length; i++)
                 {
                     #region Tavasz

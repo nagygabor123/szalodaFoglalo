@@ -32,3 +32,4 @@ C:\Users\DeliBence\Downloads\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debu
 C:\Users\DeliBence\Downloads\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.csproj.CoreCompileInputs.cache
 C:\Users\DeliBence\Downloads\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.exe
 C:\Users\DeliBence\Downloads\szalodaFoglalo\tesztCalendar\tesztCalendar\obj\Debug\tesztCalendar.pdb
+D:\app\szalodaFoglalo\tesztCalendar\tesztCalendar\bin\Debug\3.png
